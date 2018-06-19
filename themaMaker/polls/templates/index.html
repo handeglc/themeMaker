@@ -1,42 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
-	<script>
-	//console.log('OUTSIDE callback function'); 
-
-	/*function loadDoc() {
-	  console.log('inside callback function'); 
-	  var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	      document.getElementById("demo").innerHTML = this.responseText;
-	    }
-	  };
-	  xhttp.open("GET", '/more/', true);
-	  xhttp.send(null);
-	}*/
-	$(document).on('change', '.one_file', add);
-	$(document).on('click', '#submit', submit);
-
-	function add() {
-	  $('#files').append("<input type='file' class='one_file' name='filee'/><br/>");
-	  console.log("appended");
-	};
-
-	function submit() {
-	  $('#colors_files').append("hello");
-	  console.log("appended");
-
-	};
-
-	/*$('form').on('submit',function(e){
-	    e.preventDefault();
-	    $('#colors_files').append("hello");
-
-	});*/
-
+	{% load staticfiles %}
+	<script src="{% static "polls/js/main.js" %}"></script>
 	
-
-	</script>
 	<style>
 		h1 {color:blue;
 		text-align:center;}
@@ -46,7 +13,8 @@
 	<body>
 	<h1>ThemaMaker</h1>
 	<b>Upload CSS:</b>
-	<form action="javascript:console.log( 'success!' );" method="post" enctype="multipart/form-data">
+	<form action="upload/" method="POST" id="post-form" enctype="multipart/form-data">
+		{% csrf_token %}
 		<div id="files"> 
 			<input class="one_file" type="file" name="filee"/><br/>
 		</div>

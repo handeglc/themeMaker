@@ -19,7 +19,7 @@ from django.contrib import admin
 import re
 
 urlpatterns = [
-	re_path(r'^$', include('polls.urls')),
+	url(r'^polls/', include('polls.urls')),
     path(r'^admin/', admin.site.urls),
-    #re_path(r'^more/$', include('polls.urls')),
+    #re_path(r'^upload/', include('polls.urls')),
 ]

@@ -69,8 +69,14 @@ TEMPLATES = [
 ]
 #TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 TEMPLATE_DIRS = (
-   os.path.join(BASE_DIR, 'templates'),
-)
+   os.path.join(BASE_DIR, 'templates'),)
+
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 WSGI_APPLICATION = 'themaMaker.wsgi.application'
 
 
