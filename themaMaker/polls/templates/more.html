@@ -1,10 +1,31 @@
-{% extends "index.html" %}
 
-{% block title %}My amazing blog{% endblock %}
+<style>   	
+   .groups {
+   	background-color:white;
+   	display: flex;
+   }
+   .colors{
+   	display: inline-block;
+   height:100%; 
+    float: left;
+    width: 2%;
+   	 border:1px solid #000;
+   }
+</style>
+
+{% block title %}Color groupings{% endblock %}
 
 {% block content %}
-{% for entry in blog_entries %}
-    <h2>{{ entry.title }}</h2>
-    <p>{{ entry.body }}</p>
+{% for entry in files %}
+	<div class="groups" style="height:100px;">{{ entry.name }} : 
+	{% for color in entry.color_list %}
+	    
+	    <div class="colors" style="background-color:{{ color }};">
+	    <img src="http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png" width="15" height="15">
+	    </div>
+	    
+
+	{% endfor %}
+	</div><br>
 {% endfor %}
 {% endblock %}

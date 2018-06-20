@@ -15,22 +15,25 @@ def uploadfun(request):
 		#form = UploadFileForm(request.POST, request.FILES)
 		files=request.FILES.getlist("filee")
 		#if form.is_valid():
+		file_list=[]
 		for f in files:
 			instance = models.File(name_field=f.name ,file_field=f)
 			instance.save()
+			
+			with open('/Users/hande/Desktop/Project/themaMaker/uploads/'+f.name, newline='') as myFile:
+				colors = re.findall(r'color:\s(#[a-zA-Z0-9]*|[a-z]*)',myFile.read(), re.DOTALL)
 
-			color_list=[]
-			for file in files:
-				#default_storage.open(f).read()
-				with open('/Users/hande/Desktop/Project/themaMaker/uploads/'+f.name, newline='') as myFile:
-					colors = re.findall(r'color:\s(#[a-zA-Z0-9]*|[a-z]*)',myFile.read(), re.DOTALL)
-				color_list.append(colors)
+			file_list.append({"name": f.name, "color_list":colors})
 
-		return JsonResponse({"colors": color_list})
-		#return HttpResponseRedirect('/polls')
-	else:
-		form = UploadFileForm()
-	return render(request, 'upload.html', {'form': form})
+
+			#for file_no in range(0,size(color_list)):
+				#counts_list.append(500/size(color_list[file_no]))
+
+		#return JsonResponse({"files": file_list })
+		return render(request,'more.html', {"files": file_list })
+
+def colors(request):
+	pass
 	
 	#return render(request,'more.html',c)
 	
