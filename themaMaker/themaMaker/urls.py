@@ -20,6 +20,6 @@ import re
 
 urlpatterns = [
 	url(r'^polls/', include('polls.urls')),
-    path(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     #re_path(r'^upload/', include('polls.urls')),
 ]
