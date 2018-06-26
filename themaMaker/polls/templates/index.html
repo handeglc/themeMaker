@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 	<script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
@@ -5,21 +6,50 @@
 	<script src="{% static "polls/js/main.js" %}"></script>
 	
 	<style>
-		h1 {color:blue;
+		h1 {color:red;
 		text-align:center;}
 		}
 
 	</style>
 	<body>
+
 	<h1>ThemaMaker</h1>
-	<b>Upload CSS:</b>
-	<form action="upload/" method="POST" id="post-form" enctype="multipart/form-data">
-		{% csrf_token %}
-		<div id="files"> 
-			<input class="one_file" type="file" name="filee"/><br/>
+
+	<p>{{ message }}</p>
+	{% if user.is_authenticated %}
+		<div id="user_p">
+			<p>Hello, {{ user.username }}</p>
+			
+
+			<form id="logout" >
+				{% csrf_token %}
+				<input id = "submit_logout" type="submit" value="Logout"/><br/>
+			</form>
+			
+
+			
+
+			<b>Upload CSS: </b>
+
+			<form action="upload/" method="POST" id="post-form" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div id="files"> 
+					<input class="one_file" type="file" name="filee"/><br/>
+				</div>
+				<input id = "submit" type="submit" name="op" value="Upload"/><br/>
+			</form>
 		</div>
-		<input id = "submit" type="submit" name="op" value="Upload"/><br/>
-	</form>
+	{% endif %}
+		<div id="user_l">
+			<p>You are not logged in</p> 
+			{% block content %}
+	    	{% endblock %}
+	    </div>
+	
+
+	<div id="#target_logout"></div>
+	
+
 
 	<div id="colors_files"> 
 	</div>

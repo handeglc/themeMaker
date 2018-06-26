@@ -5,17 +5,15 @@ from . import models
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.views import View
+from django.contrib.auth import authenticate, login, logout
 
-class IndexView(View):
-	template_name = "home.html"
+
+'''class IndexView(View):
 
 	def get(self, request):
 		c={};
-		return render(request,'index.html',c)
+		return render(request,'index.html',c)'''
 
-'''def index(request):
-	c={};
-	return render(request,'index.html',c)'''
 
 class UploadView(View):
 
@@ -35,6 +33,31 @@ class UploadView(View):
 
 		return render(request,'more.html', {"files": file_list })
 
+class LoginView(View):
+
+	def get(self, request):
+		c={};
+		return render(request,'login.html',c)
+
+	def post(self, request, *args, **kwargs):
+
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(request, username=username, password=password)
+		c = {}
+		if user is not None:
+			login(request, user)
+			c["message"] = "you logged in!"
+			return render(request,'login.html',c)
+		else:
+			c["message"] = "try again!"
+			return render(request,'login.html',c)
+
+def logout_view(request):
+    logout(request)
+    return JsonResponse({"successfully logged out": "yes"})
+    #c["message"] = "Please login!"
+    #return render(request,'login.html',c)
 
 
 '''def uploadfun(request):
@@ -60,19 +83,5 @@ class UploadView(View):
 		#return JsonResponse({"files": file_list })
 		return render(request,'more.html', {"files": file_list })'''
 
-def colors(request):
-	pass
 	
-	#return render(request,'more.html',c)
 	
-	'''files=request.FILES.getlist("filee")
-	print("................................................................................................................")
-	print(files)
-	color_list=[]
-	for file in files:
-		with open(file.name, newline='') as myFile:
-			colors = re.findall(r'color:\s(#[a-zA-Z0-9]*|[a-z]*)',myFile.read(), re.DOTALL)
-		color.list.append(colors)
-	
-	return JsonResponse({"colors": color_list})
-	'''

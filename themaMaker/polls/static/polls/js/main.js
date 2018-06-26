@@ -11,13 +11,46 @@ console.log('OUTSIDE callback function');
   xhttp.open("GET", '/more/', true);
   xhttp.send(null);
 }*/
-$(document).on('change', '.one_file', add);
-//$(document).on('click', '#submit', submit);
+$(document).ready(function() {
+    $(document).on('change', '.one_file', add);
+    //$(document).on('click', '#logout', logout_function);
 
-function add() {
-  $('#files').append("<input type='file' class='one_file' name='filee'/><br/>");
-  console.log("appended");
-};
+    $( "#user_l" ).fadeOut("fast");
+
+    function add() {
+      $('#files').append("<input type='file' class='one_file' name='filee'/><br/>");
+      console.log("appended");
+    };
+
+    //function logout_function(){
+      console.log("heyo");
+    //$(document).on("click","#submit_logout",function() {
+    $( "#logout" ).submit(function( e ) {
+      console.log("logout clicked");
+      e.preventDefault();
+      var request = $.ajax({
+        url: "logout/",
+        method: "GET",
+      });
+      request.done(function( msg ) {
+        $( "#user_p" ).fadeOut( "slow" );
+        $( "#user_l" ).show();
+        console.log("logout happened");
+      });
+
+      /* e.preventDefault();
+       $.ajax({
+           url: "index.html",
+           method: $(this).attr('method'),
+           success: function(data){ $('#target_logout').html(data) }
+       });  */
+    });
+
+    
+
+});
+   
+//};
 
 /*function submit() {
   $('#colors_files').append("hello");
