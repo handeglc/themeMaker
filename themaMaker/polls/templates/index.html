@@ -25,9 +25,7 @@
 				{% csrf_token %}
 				<input id = "submit_logout" type="submit" value="Logout"/><br/>
 			</form>
-			
 
-			
 
 			<b>Upload CSS: </b>
 
@@ -40,11 +38,12 @@
 			</form>
 		</div>
 	{% endif %}
-		<div id="user_l">
-			<p>You are not logged in</p> 
-			{% block content %}
-	    	{% endblock %}
-	    </div>
+
+	<div id="user_l">
+		<p>You are not logged in</p> 
+		{% block content %}
+    	{% endblock %}
+    </div>
 	
 
 	<div id="#target_logout"></div>

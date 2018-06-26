@@ -1,31 +1,57 @@
 
 <style>   	
-   .groups {
-   	background-color:white;
-   	display: flex;
-   }
    .colors{
    	display: inline-block;
    height:100%; 
     float: left;
-    width: 2%;
+    width: 100%;
    	 border:1px solid #000;
    }
+   .groups{
+    display: flex;
+    height:60px;
+    width: :70px;
+    border:1px solid #000;
+   }
+  
+
+    input.colors{
+        margin: .1rem;
+
+    }
+    input.checkbox{
+      background: url("http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png");
+    }
+
 </style>
+<script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
+{% load staticfiles %}
+<script src="{% static "polls/js/upload.js" %}"></script>
+<body>
+  <p>Color groups of css files </p>
 
-{% block title %}Color groupings{% endblock %}
+  <form action="">
+    {% for entry in files %}
+      {{ entry.name }} : <br>
+    	<div class="groups" >
+    	{% for color in entry.color_list %}
+    	    
+          <input class="colors" type="color" name="favcolor" value="{{ color }}"><br>
+          <input class="checkbox" type="checkbox" name="lock" value="Lock"> <hr>
+    	    <!--
+          <img src="http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png" width="15" height="15"> 
+          -->
+    
+    	    
+      {% endfor %}
+    	</div>
+    {% endfor %}
+    <input type="submit">
+  </form>
 
-{% block content %}
-{% for entry in files %}
-	<div class="groups" style="height:100px;">{{ entry.name }} : 
-	{% for color in entry.color_list %}
-	    
-	    <div class="colors" style="background-color:{{ color }};">
-	    <img src="http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png" width="15" height="15">
-	    </div>
-	    
+  <form id="recom" >
+    {% csrf_token %}
+    <input id = "recom_s" type="submit" value="I liked this color group."/><br/>
+  </form>
 
-	{% endfor %}
-	</div><br>
-{% endfor %}
-{% endblock %}
+</body>
