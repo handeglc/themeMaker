@@ -2,10 +2,12 @@ console.log('OUTSIDE callback function');
 
 
 $(document).ready(function() {
+    $( "#tabs" ).tabs();
+
     $(document).on('change', '.one_file', add);
     //$(document).on('click', '#logout', logout_function);
     if ($('#user_p').is(':visible')){
-      $( "#user_l" ).hide();
+      $( "#tabs" ).hide();
     }
 
     function add() {
@@ -25,7 +27,7 @@ $(document).ready(function() {
       });
       request.done(function( msg ) {
         $( "#user_p" ).fadeOut( "slow" );
-        $( "#user_l" ).show();
+        $( "#tabs" ).show();
         console.log("logout happened");
       });
     });

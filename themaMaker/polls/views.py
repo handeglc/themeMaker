@@ -7,7 +7,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
-
+from polls import color
 
 
 
@@ -41,8 +41,8 @@ class UploadView(View):
 					temp_b = colors[x][3]
 					colors[x] = '#'+ temp_r + temp_r + temp_g + temp_g + temp_b + temp_b
 
-
-			file_list.append({"name": f.name, "color_list":colors})
+			color_no_list = list(range(len(colors)))
+			file_list.append({"name": f.name, "color_list":colors, "color_no_list": color_no_list })
 
 		return render(request,'more.html', {"files": file_list })
 
@@ -50,6 +50,9 @@ class LoginView(View):
 
 	def get(self, request):
 		c={};
+		#colors = color.color_database()
+		#for i in range(len(colors)):
+		#	Color.objects.create('color_id_hex'= colors[i]['color_id_hex'], 'color_name'=colors[i]['color_name'], 'is_light'=colors[i]['is_light'], 'color_tendency' = colors[i]['color_tendency'], 'is_saturated' = colors[i]['is_saturated'])
 		return render(request,'login.html',c)
 
 	def post(self, request, *args, **kwargs):
@@ -68,7 +71,7 @@ class LoginView(View):
 
 def logout_view(request):
     logout(request)
-    return JsonResponse({"successfully logged out": "yes"})
+    return JsonResponse({"successfully_logged_out": "yes"})
     #c["message"] = "Please login!"
     #return render(request,'login.html',c)
 

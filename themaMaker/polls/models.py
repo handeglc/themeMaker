@@ -3,18 +3,18 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 
 
-
-
 class Color(models.Model): #color hsl and rgb values can be stored too
 	color_id_hex = models.CharField(max_length=30)
 	color_name = models.CharField(max_length=100, default="")
-	is_dark = models.BooleanField(default=True)
+	is_light = models.BooleanField(default=True)
+	color_tendency = models.CharField(max_length=10, default="")
+	is_saturated = models.BooleanField(default=True)
 
 
 class Color_Groups(models.Model):
 	colors = models.ManyToManyField(Color)
 	how_many_colors = models.IntegerField(default=0)
-	tendency = models.CharField(max_length=10, default="")
+	group_tendency = models.CharField(max_length=10, default="")
 
 class User_Profile(models.Model):
 	user = models.OneToOneField(User,on_delete=models.CASCADE)

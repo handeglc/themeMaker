@@ -4,54 +4,73 @@
 	<script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
 	{% load staticfiles %}
 	<script src="{% static "polls/js/main.js" %}"></script>
-	
-	<style>
-		h1 {color:red;
-		text-align:center;}
-		}
+	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'polls/css/style.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'polls/css/jquery-ui.css' %}" />
+	<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">-->
 
-	</style>
 	<body>
+		<a href="/" id="logo">ThemeMaker</a>
 
-	<h1>ThemaMaker</h1>
-
-	<p>{{ message }}</p>
-	{% if user.is_authenticated %}
-		<div id="user_p">
-			<p>Hello, {{ user.username }}</p>
-			
-
-			<form id="logout" >
-				{% csrf_token %}
-				<input id = "submit_logout" type="submit" value="Logout"/><br/>
-			</form>
-
-
-			<b>Upload CSS: </b>
-
-			<form action="upload/" method="POST" id="post-form" enctype="multipart/form-data">
-				{% csrf_token %}
-				<div id="files"> 
-					<input class="one_file" type="file" name="filee"/><br/>
+		{% if user.is_authenticated %}
+			<div id="user_p">
+				<div id ="user_profile">
+					<p>Hello, {{ user.username }}</p>
+					<form id="logout" >
+						{% csrf_token %}
+						<input class="button" id = "submit_logout" type="submit" value="Logout"/><br/>
+					</form>
 				</div>
-				<input id = "submit" type="submit" name="op" value="Upload"/><br/>
-			</form>
+				<div id="upload_files">
+					<p>Upload your CSS files: </p><br>
+					<form action="upload/" method="POST" id="post-form" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div id="files"> 
+							<input class="one_file" type="file" name="filee" title=""/><br/>
+						</div>
+						<input class="button" id = "submit" type="submit" name="op" value="Upload"/><br/>
+					</form>
+				</div>
+			</div>
+		{% endif %}
+
+		<div id="tabs">
+		  <ul>
+		    <li><a href="#login_tab"><span>Sign in</span></a></li>
+		    <li><a href="#signup_tab"><span>Sign up</span></a></li>
+		    <li><a href="#resetpass_tab"><span>Reset Password</span></a></li>
+		  </ul>
+		  <div id="login_tab">
+			<div id="user_l">
+				<p>You are not logged in</p> 
+				<div id="login_form">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+		  </div>
+		  <div id="signup_tab">
+			<div id="user_signup">
+				<p>Register</p> 
+
+			</div>
+
+		  </div>
+		  <div id="resetpass_tab">
+		    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+		    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+		    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+		  </div>
 		</div>
-	{% endif %}
+		
 
-	<div id="user_l">
-		<p>You are not logged in</p> 
-		{% block content %}
-    	{% endblock %}
-    </div>
-	
-
-	<div id="#target_logout"></div>
-	
+		<div id="#target_logout"></div>
+		
 
 
-	<div id="colors_files"> 
-	</div>
+		<div id="colors_files"> 
+		</div>
 
 	</body>
 </html>

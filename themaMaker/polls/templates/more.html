@@ -1,57 +1,44 @@
 
-<style>   	
-   .colors{
-   	display: inline-block;
-   height:100%; 
-    float: left;
-    width: 100%;
-   	 border:1px solid #000;
-   }
-   .groups{
-    display: flex;
-    height:60px;
-    width: :70px;
-    border:1px solid #000;
-   }
-  
-
-    input.colors{
-        margin: .1rem;
-
-    }
-    input.checkbox{
-      background: url("http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png");
-    }
-
-</style>
-<script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/css/upload-style.css' %}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 {% load staticfiles %}
+<script src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" data-auto-replace-svg="nest"></script>
+<script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
 <script src="{% static "polls/js/upload.js" %}"></script>
 <body>
-  <p>Color groups of css files </p>
+  <a href="/" id="logo">ThemeMaker</a>
 
   <form action="">
     {% for entry in files %}
-      {{ entry.name }} : <br>
+      <h4>{{ entry.name }} : <h4>
     	<div class="groups" >
     	{% for color in entry.color_list %}
     	    
           <input class="colors" type="color" name="favcolor" value="{{ color }}"><br>
-          <input class="checkbox" type="checkbox" name="lock" value="Lock"> <hr>
+          
     	    <!--
           <img src="http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png" width="15" height="15"> 
           -->
-    
-    	    
+
       {% endfor %}
     	</div>
+
+      <div class="groups_checkbox" >
+        {% for color_no in entry.color_no_list %}
+          <!--<input class="checkbox" type="checkbox" name="lock" value="Lock">-->
+          <i class="fas fa-lock-open" color-id='{{ color_no }}'' ></i>
+        {% endfor %}
+      </div>
+
     {% endfor %}
-    <input type="submit">
+    <input type="submit" value="Recommend the rest of the colors">
+    <input id = "recom_s" type="submit" value="I liked these locked colors together"/><br/>
   </form>
 
-  <form id="recom" >
-    {% csrf_token %}
-    <input id = "recom_s" type="submit" value="I liked this color group."/><br/>
-  </form>
+  <input id="sellectall" type="button" value="Lock all colors" /> 
+  <input id="un-sellectall" type="button" value="Unlock all colors" />
+
+  
 
 </body>

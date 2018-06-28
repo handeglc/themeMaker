@@ -1,0 +1,118 @@
+body {
+	background: #eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png);
+}
+p{
+	font-size:20px;
+	font-family: 'Open Sans', sans-serif;
+
+}
+
+.button {
+    background-color: #4CAF50;
+    border: 1px solid #000;
+    border-radius: 6px;
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px 14px;
+    cursor: pointer;
+}
+
+#login_form{
+	border: 1px solid #000000b3;
+	border-radius: 6px;
+	background-color:#fffefba6;
+	text-align:center;
+	width:30%;
+	margin: 0 auto;
+}
+
+#login_tab{
+	text-align:center;
+	text-decoration:solid;
+	font-size:17px;
+}
+
+.input_login{
+	margin:15px;
+	width:170px;
+	height:27px;
+	border-radius: 6px;
+	border-bottom: 2px solid #d0ad61;
+	border-right: 2px solid #d0ad61;
+	background-color:#f5f0e6e0;
+}
+
+#logo {
+  font-family: 'Open Sans', sans-serif;
+  color: #c6d8d6;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 100px;
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+  text-shadow: #EDEDED 3px 2px 0;
+  position: relative;
+}
+#logo:after {
+  content:"thememaker";
+  position: absolute;
+  left: 8px;
+  top: 4px;
+}
+#logo:after {
+  /*background: url(https://subtlepatterns.com/patterns/crossed_stripes.png) repeat;*/
+  background-image: -webkit-linear-gradient(left top, transparent 0%, transparent 25%, #555 25%, #555 50%, transparent 50%, transparent 75%, #555 75%);
+  background-size: 4px 4px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  z-index: -5;
+  display: block;
+  text-shadow: none;
+}
+
+#user_profile{
+	color:#EDEDED;
+	text-shadow: #080808 2px 1px 0;
+	margin-left:2%;
+	border: 1px solid #000000b3;
+	border-radius: 6px;
+	width:15%;;
+	height:150px;
+	text-align:center;
+	background-image: url( https://image.freepik.com/free-photo/creative-wooden-room-concept-colorful-retro_1484-339.jpg);
+}
+
+#user_p{
+	display:flex;
+}
+
+#upload_files{
+	color:#EDEDED;
+	text-shadow: #080808 2px 1px 0;
+	text-shadow:black 
+	border: 1px solid #000000b3;
+	border-radius: 6px;
+	width:50%;
+	text-align:center;
+	margin-left:8%;
+	background-image: url( https://image.freepik.com/free-photo/creative-wooden-room-concept-colorful-retro_1484-339.jpg);
+}
+
+input[type="file"]{
+	background-color: #4CAF50;
+    border: 1px solid #000;
+    border-radius: 6px;
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px 14px;
+    cursor: pointer;
+}
