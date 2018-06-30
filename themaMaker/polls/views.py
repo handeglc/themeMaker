@@ -2,13 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 import re
 import webcolors
-from . import models
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
+from polls.models import *
 from polls import color
-
 
 
 class UploadView(View):
@@ -19,7 +18,7 @@ class UploadView(View):
 		
 		file_list=[]
 		for f in files:
-			instance = models.File(name_field=f.name ,file_field=f)
+			instance = File(name_field=f.name ,file_field=f)
 			instance.save()
 			
 			with open('/Users/hande/Desktop/Project/themaMaker/uploads/'+f.name, newline='') as myFile:
@@ -56,7 +55,7 @@ class LoginView(View):
 		return render(request,'login.html',c)
 
 	def post(self, request, *args, **kwargs):
-
+		
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(request, username=username, password=password)
@@ -74,6 +73,35 @@ def logout_view(request):
     return JsonResponse({"successfully_logged_out": "yes"})
     #c["message"] = "Please login!"
     #return render(request,'login.html',c)
+
+class SaveView(View):
+	def post(self, request, *args, **kwargs):
+		data = request.POST.get("datas",None);
+		#print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+		#print(data)
+		colors = re.findall(r'favcolor=%23([a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9])',data, re.DOTALL) #color hexes but without "#"
+		colors_hex = [ "#"+elem for elem in colors] 
+		print("______________________________________")
+		print(colors_hex)
+		print("______________________________________DONE")
+		color_set = Color_Groups(how_many_colors=len(colors_hex), group_tendency=color.cg_group_tendency(colors_hex))
+		color_set.save()
+		for color_hex in colors_hex:
+			database_color = Color.objects.filter(color_id_hex=color_hex)
+			if database_color.count() == 0:
+				color_dic = {"color_id_hex": color_hex, "is_light": color.color_is_light(color_hex), "is_saturated":color.color_is_saturated(color_hex)}
+				c = Color(**color_dic)
+				c.save()
+			else:
+				c = database_color[0]
+			color_set.colors.add(c)
+
+
+		if request.user.is_authenticated:
+			user_nname = request.user.username
+			user = User_Profile.objects.get(username=user_nname)
+			user.liked_color_groups.add(color_set)
+		return JsonResponse({"done": data})
 
 
 

@@ -1,10 +1,15 @@
 body {
 	background: #eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png);
 }
+.logo-class{
+	text-align:center;
+}
+
 p{
 	font-size:20px;
 	font-family: 'Open Sans', sans-serif;
-
+	color:#EDEDED;
+	text-shadow: #080808 2px 1px 0;
 }
 
 .button {
@@ -76,16 +81,26 @@ p{
 }
 
 #user_profile{
-	color:#EDEDED;
-	text-shadow: #080808 2px 1px 0;
+	color:#c6d9d6;
+	text-shadow: #000000 5px 3px 0;
 	margin-left:2%;
 	border: 1px solid #000000b3;
 	border-radius: 6px;
 	width:15%;;
 	height:150px;
 	text-align:center;
-	background-image: url( https://image.freepik.com/free-photo/creative-wooden-room-concept-colorful-retro_1484-339.jpg);
+	position:relative;
 }
+
+#user_profile:before{
+	background-image: url( https://image.freepik.com/free-photo/creative-wooden-room-concept-colorful-retro_1484-339.jpg);
+	content: "";
+	z-index: -1;
+	position: absolute;
+	opacity: 0.3;
+	top: 0; bottom: 0; left: 0; right: 0;
+	background-size: cover;
+ }
 
 #user_p{
 	display:flex;
@@ -94,14 +109,24 @@ p{
 #upload_files{
 	color:#EDEDED;
 	text-shadow: #080808 2px 1px 0;
-	text-shadow:black 
+	text-shadow:black ;
 	border: 1px solid #000000b3;
 	border-radius: 6px;
 	width:50%;
 	text-align:center;
 	margin-left:8%;
-	background-image: url( https://image.freepik.com/free-photo/creative-wooden-room-concept-colorful-retro_1484-339.jpg);
+	position:relative;
 }
+
+#upload_files:before{
+	background-image: url( https://image.freepik.com/free-photo/creative-wooden-room-concept-colorful-retro_1484-339.jpg);
+	content: "";
+	z-index: -1;
+	position: absolute;
+	opacity: 0.3;
+	top: 0; bottom: 0; left: 0; right: 0;
+	background-size: cover;
+ }
 
 input[type="file"]{
 	background-color: #4CAF50;

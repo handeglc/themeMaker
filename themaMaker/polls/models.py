@@ -4,11 +4,13 @@ from django.contrib.auth.models import User
 
 
 class Color(models.Model): #color hsl and rgb values can be stored too
-	color_id_hex = models.CharField(max_length=30)
+	color_id_hex = models.CharField(max_length=30, unique=True, default="", null=False)
 	color_name = models.CharField(max_length=100, default="")
 	is_light = models.BooleanField(default=True)
 	color_tendency = models.CharField(max_length=10, default="")
 	is_saturated = models.BooleanField(default=True)
+	#def __str__(self):
+		#return (self.color_name)
 
 
 class Color_Groups(models.Model):
@@ -17,16 +19,9 @@ class Color_Groups(models.Model):
 	group_tendency = models.CharField(max_length=10, default="")
 
 class User_Profile(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE)
+	user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
 	liked_color_groups = models.ManyToManyField(Color_Groups)
 
 class File(models.Model):
     name_field = models.CharField(max_length=100)
     file_field = models.FileField(upload_to='uploads/')
-
-
-admin.site.register(File)
-admin.site.register(Color)
-admin.site.register(Color_Groups)
-admin.site.register(User_Profile)
-

@@ -2,15 +2,21 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/css/upload-style.css' %}" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'polls/css/jquery-ui.css' %}" />
 {% load staticfiles %}
 <script src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" data-auto-replace-svg="nest"></script>
 <script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{% static "polls/js/upload.js" %}"></script>
 <body>
-  <a href="/" id="logo">ThemeMaker</a>
-
-  <form action="">
-    {% for entry in files %}
+  <div class="logo-class">
+    <a href="/" id="logo">ThemeMaker</a>
+  </div>
+  
+{% for entry in files %}
+  <form class= "color-picker">
+    {% csrf_token %}
+    
       <h4>{{ entry.name }} : <h4>
     	<div class="groups" >
     	{% for color in entry.color_list %}
@@ -27,14 +33,18 @@
       <div class="groups_checkbox" >
         {% for color_no in entry.color_no_list %}
           <!--<input class="checkbox" type="checkbox" name="lock" value="Lock">-->
-          <i class="fas fa-lock-open" color-id='{{ color_no }}'' ></i>
+          <i id="lock" class="fas fa-lock-open" color-id='{{ color_no }}'' ></i>
         {% endfor %}
       </div>
 
-    {% endfor %}
-    <input type="submit" value="Recommend the rest of the colors">
-    <input id = "recom_s" type="submit" value="I liked these locked colors together"/><br/>
+    
+    <input class="submit-form" type="submit" value="Recommend colors for me!">
+    <input class="submit-form" id = "recom_s" type="submit" value="I liked this color set!"/> 
+      <a id="hide-option" title="If you want to store this color group,  click 'I liked this color set!'. For recommendations, lock at least 3 colors you like. If you want recommendation according to your locked colors and stored color groups if there is any, click 'Recommend the rest of the colors', then it will display recommended colors. ">
+      <i class="far fa-question-circle"></i>
+    </a><br/>
   </form>
+  {% endfor %}
 
   <input id="sellectall" type="button" value="Lock all colors" /> 
   <input id="un-sellectall" type="button" value="Unlock all colors" />

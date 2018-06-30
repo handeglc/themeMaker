@@ -838,7 +838,7 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs .ui-tabs-nav {
 	margin: 0;
 	padding: .2em .2em 0;
-	background-image:url(https://image.freepik.com/free-photo/creative-wooden-room-concept-colorful-retro_1484-339.jpg);
+	background-image:url(http://www.truehearts.fi/wordpress/lataukset/shutterstock_288435356-800x450.jpg);
 }
 .ui-tabs .ui-tabs-nav li {
 	text-align:center;
@@ -858,7 +858,7 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	margin-bottom: -1px;
 	padding-bottom: 1px;
-	background-color:#eac50a;
+	background-color:#4caf4f;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
 .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
@@ -874,6 +874,8 @@ button.ui-button::-moz-focus-inner {
 	padding: 1em 1.4em;
 	background-image: url( http://www.truehearts.fi/wordpress/lataukset/shutterstock_288435356-800x450.jpg);
 }
+
+
 .ui-tooltip {
 	padding: 8px;
 	position: absolute;
