@@ -20,7 +20,7 @@ class Color_Groups(models.Model):
 
 class User_Profile(models.Model):
 	user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
-	liked_color_groups = models.ManyToManyField(Color_Groups)
+	liked_color_groups = models.ManyToManyField(Color_Groups, blank=True)
 
 class File(models.Model):
     name_field = models.CharField(max_length=100)

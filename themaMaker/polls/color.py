@@ -9,9 +9,6 @@ def convert_rgb_to_hls(r, g, b):
     return (int(round(h * 360)) , int(round(l * 100)) , int(round(s * 100)) )
 
 def convert_hex_to_rgb(value):
-	print("############################################################")
-	print(value)
-	print("############################################################_done")
 	#if type(value)==str:
 	value = value.lstrip('#')
 	lv = len(value)
@@ -88,14 +85,9 @@ def color_is_saturated(color_id_hex):
 
 
 def cg_group_tendency(color_list_hex):
-	print("color_list_hex")
-	print(color_list_hex)
+
 	color_rgb_list = [convert_hex_to_rgb(elem) for elem in color_list_hex]
-	print("color_rgb_list")
-	print(color_rgb_list)
 	color_tend_list = [color_tendency(elem) for elem in color_list_hex]
-	print("color_tend_list")
-	print(color_tend_list)
 	word_counter = {}
 	for word in color_tend_list:
 		if word in word_counter:

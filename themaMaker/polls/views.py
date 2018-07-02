@@ -77,13 +77,10 @@ def logout_view(request):
 class SaveView(View):
 	def post(self, request, *args, **kwargs):
 		data = request.POST.get("datas",None);
-		#print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-		#print(data)
+
 		colors = re.findall(r'favcolor=%23([a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9])',data, re.DOTALL) #color hexes but without "#"
 		colors_hex = [ "#"+elem for elem in colors] 
-		print("______________________________________")
-		print(colors_hex)
-		print("______________________________________DONE")
+		
 		color_set = Color_Groups(how_many_colors=len(colors_hex), group_tendency=color.cg_group_tendency(colors_hex))
 		color_set.save()
 		for color_hex in colors_hex:
@@ -99,7 +96,8 @@ class SaveView(View):
 
 		if request.user.is_authenticated:
 			user_nname = request.user.username
-			user = User_Profile.objects.get(username=user_nname)
+			user_obj = User.objects.get(username = user_nname)
+			user = User_Profile.objects.get(user = user_obj)
 			user.liked_color_groups.add(color_set)
 		return JsonResponse({"done": data})
 
