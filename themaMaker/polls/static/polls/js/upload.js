@@ -57,7 +57,6 @@ $(document).ready(function() {
       console.log("submit clicked");
       
       e.preventDefault();
-      alert('button clicked was ' + buttonpressed);
 
         if(buttonpressed=="I liked this color set!"){
           var datastring = $(this).serialize();
@@ -77,8 +76,8 @@ $(document).ready(function() {
                   //alert('error handing here');
               }
           });
-      }
-    });
+        }
+      });
 
 
 });

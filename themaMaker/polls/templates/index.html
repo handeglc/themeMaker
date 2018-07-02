@@ -1,13 +1,16 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
+	
 	{% load staticfiles %}
+	<script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
 	<script src="{% static "polls/js/main.js" %}"></script>
 	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" data-auto-replace-svg="nest"></script>
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'polls/css/style.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'polls/css/jquery-ui.css' %}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">-->
 
 	<body>
@@ -35,6 +38,20 @@
 					</form>
 				</div>
 			</div>
+			<div id="user_preferences">
+				<i class="far fa-heart"></i>
+				<div id=user_color_g>
+					{% for cgs in liked_cg %}
+						<div class="color_group">
+						{% for c in cgs.list %}
+							<div class="color" style="background-color:{{ c.color_id_hex }};"><h4 display=none class="c_info">{{ c }}</h4></div>
+						{% endfor %}
+						</div>
+						<i cg_list_id="{{ cgs.id }}" class="far fa-trash-alt" ></i></br>
+				{% endfor %}
+				</div>
+
+			</div>
 		{% endif %}
 
 		<div id="tabs">
@@ -44,30 +61,35 @@
 		    <li><a href="#resetpass_tab"><span>Reset Password</span></a></li>
 		  </ul>
 		  <div id="login_tab">
-			<div id="user_l">
+			<div id="login_form">
 				<p>You are not logged in</p> 
-				<div id="login_form">
-					{% block content %}
-					{% endblock %}
-				</div>
+				{% block content %}
+				{% endblock %}
 			</div>
 		  </div>
 		  <div id="signup_tab">
 			<div id="user_signup">
 				<p>Register</p> 
+				<h4 id = "notMatch" hidden> The passwords you entered are not the same! </h4>
+				<form id="signup">
+					{% csrf_token %}
+				    <label for="username">User name:</label>
+				    <input class="input_login" type="text" name="username" value="" id="un"><br>
+				    <label for="password">Password:</label>
+				    <input class="input_login" type="password" name="password" value="" id="ps"><br>
+				    <label for="password">Re-enter Password:</label>
+				    <input class="input_login" type="password" name="password_re" value="" id="ps2"><br>
 
+				    <input class="button" type="submit" value="Sign Up" /> 
+				 </form>
 			</div>
 
 		  </div>
 		  <div id="resetpass_tab">
-		    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-		    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-		    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+
 		  </div>
 		</div>
 		
-
-		<div id="#target_logout"></div>
 		
 
 

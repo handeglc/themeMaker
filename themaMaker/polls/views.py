@@ -6,8 +6,10 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from polls.models import *
 from polls import color
+from django.template.loader import render_to_string
 
 
 class UploadView(View):
@@ -15,7 +17,6 @@ class UploadView(View):
 	def post(self, request, *args, **kwargs):
 
 		files=request.FILES.getlist("filee")
-		
 		file_list=[]
 		for f in files:
 			instance = File(name_field=f.name ,file_field=f)
@@ -47,11 +48,46 @@ class UploadView(View):
 
 class LoginView(View):
 
-	def get(self, request):
+	def liked_cg(self,request):
 		c={};
-		#colors = color.color_database()
-		#for i in range(len(colors)):
-		#	Color.objects.create('color_id_hex'= colors[i]['color_id_hex'], 'color_name'=colors[i]['color_name'], 'is_light'=colors[i]['is_light'], 'color_tendency' = colors[i]['color_tendency'], 'is_saturated' = colors[i]['is_saturated'])
+		c["liked_cg"]=[]
+		if request.user.is_authenticated:
+			#c["liked_cg"]
+			cg_list =[]
+			user_nname = request.user.username
+			user_obj = User.objects.get(username = user_nname)
+			user = User_Profile.objects.get(user = user_obj)
+			cgs = user.liked_color_groups.all()
+			for cg in cgs:
+				cols = cg.colors.all()
+				cols_id = cg.id
+				col_list = []
+				for c in cols:
+					col_list.append(c)
+				cg_list.append({"id": cols_id, "list" :col_list})
+			print(cg_list)
+			c = {"liked_cg":cg_list}
+		return c
+
+	def get(self, request):
+		#c={}
+		'''c["liked_cg"]=[]
+		if request.user.is_authenticated:
+			#c["liked_cg"]
+			cg_list =[]
+			user_nname = request.user.username
+			user_obj = User.objects.get(username = user_nname)
+			user = User_Profile.objects.get(user = user_obj)
+			cgs = user.liked_color_groups.all()
+			for cg in cgs:
+				cols = cg.colors.all()
+				col_list = []
+				for c in cols:
+					col_list.append(c)
+				cg_list.append(col_list)
+
+			c = {"liked_cg":cg_list}'''
+		c = self.liked_cg(request)
 		return render(request,'login.html',c)
 
 	def post(self, request, *args, **kwargs):
@@ -60,12 +96,15 @@ class LoginView(View):
 		password = request.POST['password']
 		user = authenticate(request, username=username, password=password)
 		c = {}
+		
 		if user is not None:
 			login(request, user)
+			c = self.liked_cg(request)
 			c["message"] = "you logged in!"
-			return render(request,'login.html',c)
+			return render(request,'index.html',c)
 		else:
 			c["message"] = "try again!"
+			c = self.liked_cg(request)
 			return render(request,'login.html',c)
 
 def logout_view(request):
@@ -74,12 +113,24 @@ def logout_view(request):
     #c["message"] = "Please login!"
     #return render(request,'login.html',c)
 
+def delete_cg_view(request):
+	user_nname = request.user.username
+	user_obj = User.objects.get(username = user_nname)
+	user = User_Profile.objects.get(user = user_obj)
+	cg_id = int(request.POST["id"])
+	color_set = Color_Groups.objects.filter(id=cg_id)
+	user.liked_color_groups.remove(color_set[0])
+
+	return JsonResponse({"saved": "deleted"})
+    #c["message"] = "Please login!"
+    #return render(request,'login.html',c)
+
 class SaveView(View):
 	def post(self, request, *args, **kwargs):
 		data = request.POST.get("datas",None);
 
 		colors = re.findall(r'favcolor=%23([a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9])',data, re.DOTALL) #color hexes but without "#"
-		colors_hex = [ "#"+elem for elem in colors] 
+		colors_hex = [ "#"+elem for elem in colors] #add '#' to the beginning of the color codes
 		
 		color_set = Color_Groups(how_many_colors=len(colors_hex), group_tendency=color.cg_group_tendency(colors_hex))
 		color_set.save()
@@ -101,6 +152,26 @@ class SaveView(View):
 			user.liked_color_groups.add(color_set)
 		return JsonResponse({"done": data})
 
+
+class SignUpView(View):
+	def post(self, request, *args, **kwargs):
+
+		username = request.POST['username']
+		password = request.POST['password']
+
+		taken_name = User.objects.filter(username=username)
+
+		if taken_name.count() == 0:
+			user_obj = User.objects.create_user(username=username,email=None,password=password)
+			user_obj.save()
+			user = User_Profile(user=user_obj)
+			user.save()
+			us = authenticate(request, username=username, password=password)
+			login(request, us)
+			return JsonResponse({"saved": "registered"})
+
+		else:
+			return JsonResponse({"saved": "same_name_taken"})
 
 
 	
