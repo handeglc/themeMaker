@@ -1,0 +1,11 @@
+{% extends 'more.html' %}
+
+{% block title %}
+<h2>Color suggestions for {{ username }}</h2>
+<div id="recommendations">
+	{% for color in color_list %}
+		{{ color }}
+	{% endfor %}
+</div>
+
+{% endblock %}

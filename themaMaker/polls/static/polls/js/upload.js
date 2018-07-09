@@ -77,6 +77,36 @@ $(document).ready(function() {
               }
           });
         }
+        if(buttonpressed=="Recommend colors for me!"){
+          var datastring = $(this).serialize();
+          console.log(datastring);
+          $.ajax({
+              type: "POST",
+              url: "recommend/",
+              data: {"datas":datastring},
+              dataType: "json",
+              headers: { "X-CSRFToken": getCookie("csrftoken") },
+              success: function(data) {
+                  //var obj = jQuery.parseJSON(data); if the dataType is not specified as json uncomment this
+                  // do what ever you want with the server response
+                  console.log("success datastring sent-recom");
+                  $("#recommendations").removeAttr('hidden');
+                  $( ".recommended" ).remove();
+                  for (var i = 0; i < data.color_list.length; i++) {
+
+                    console.log("in for")
+                    var html1 = '<div class="colors recommended" style="background-color:'+ data.color_list[i] +'">'
+                    var html = '<input class="colors recommended" type="color" name="favcolor" value="'+data.color_list[i]+'">'
+                    $( "#recommendations" ).append( html ); //"<p>"+data.color_list[i]+"</p>"
+                  }
+                  console.log(data)
+              },
+              error: function(e) {
+                  //alert('error handing here');
+                  console.log("error");
+              }
+          });
+        }
       });
 
 

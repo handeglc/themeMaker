@@ -8,4 +8,5 @@ admin.site.register(File)
 admin.site.register(Color)
 admin.site.register(Color_Groups)
 admin.site.register(User_Profile)
-
+admin.site.register(Review)
+admin.site.register(Cluster)

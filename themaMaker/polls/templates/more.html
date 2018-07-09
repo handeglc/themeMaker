@@ -13,38 +13,47 @@
     <a href="/" id="logo">ThemeMaker</a>
   </div>
   
-{% for entry in files %}
+  {% for entry in files %}
+    <form class= "color-picker">
+      {% csrf_token %}
+      
+        <h4>{{ entry.name }} : </h4>
+      	<div class="groups" >
+      	{% for color in entry.color_list %}
+      	    
+            <input class="colors" type="color" name="favcolor" value="{{ color }}"><br>
+            
+      	    <!--
+            <img src="http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png" width="15" height="15"> 
+            -->
+
+        {% endfor %}
+      	</div>
+
+        <div class="groups_checkbox" >
+          {% for color_no in entry.color_no_list %}
+            <!--<input class="checkbox" type="checkbox" name="lock" value="Lock">-->
+            <i id="lock" class="fas fa-lock-open" color-id='{{ color_no }}'' ></i>
+          {% endfor %}
+        </div>
+
+      
+      <input class="submit-form" type="submit" value="Recommend colors for me!">
+      <input class="submit-form" type="submit" value="I liked this color set!"/> 
+        <a id="hide-option" title="If you want to store this color group,  click 'I liked this color set!'. For recommendations, lock at least 3 colors you like. If you want recommendation according to your locked colors and stored color groups if there is any, click 'Recommend the rest of the colors', then it will display recommended colors. ">
+        <i class="far fa-question-circle"></i>
+      </a><br/>
+    </form>
+  {% endfor %}
+
   <form class= "color-picker">
     {% csrf_token %}
-    
-      <h4>{{ entry.name }} : <h4>
-    	<div class="groups" >
-    	{% for color in entry.color_list %}
-    	    
-          <input class="colors" type="color" name="favcolor" value="{{ color }}"><br>
-          
-    	    <!--
-          <img src="http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png" width="15" height="15"> 
-          -->
+    <div class="groups" id="recommendations" hidden>  
+      
 
-      {% endfor %}
-    	</div>
-
-      <div class="groups_checkbox" >
-        {% for color_no in entry.color_no_list %}
-          <!--<input class="checkbox" type="checkbox" name="lock" value="Lock">-->
-          <i id="lock" class="fas fa-lock-open" color-id='{{ color_no }}'' ></i>
-        {% endfor %}
-      </div>
-
-    
-    <input class="submit-form" type="submit" value="Recommend colors for me!">
-    <input class="submit-form" id = "recom_s" type="submit" value="I liked this color set!"/> 
-      <a id="hide-option" title="If you want to store this color group,  click 'I liked this color set!'. For recommendations, lock at least 3 colors you like. If you want recommendation according to your locked colors and stored color groups if there is any, click 'Recommend the rest of the colors', then it will display recommended colors. ">
-      <i class="far fa-question-circle"></i>
-    </a><br/>
+    </div>
+    <input hidden class="submit-form" type="submit" value="I liked this color set!"/> 
   </form>
-  {% endfor %}
 
   <input id="sellectall" type="button" value="Lock all colors" /> 
   <input id="un-sellectall" type="button" value="Unlock all colors" />

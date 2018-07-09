@@ -39,7 +39,8 @@
 				</div>
 			</div>
 			<div id="user_preferences">
-				<i class="far fa-heart"></i>
+				<h4>Your color groups: <i class="far fa-heart"></i></h4>
+				
 				<div id=user_color_g>
 					{% for cgs in liked_cg %}
 						<div class="color_group">
@@ -48,7 +49,7 @@
 						{% endfor %}
 						</div>
 						<i cg_list_id="{{ cgs.id }}" class="far fa-trash-alt" ></i></br>
-				{% endfor %}
+					{% endfor %}
 				</div>
 
 			</div>

@@ -30,10 +30,13 @@ $(document).ready(function() {
       console.log("appended");
     };
 
-    //$(".c_info").hide();
-    $(".color").mouseover(function() {
-      console.log("hover!");
-      $(this).find('.c_info').toggle( "slow" );
+    $(".c_info").hide();
+    
+    $(".color").on("mouseenter", function() {
+       $(this).find('.c_info').show();
+    });
+    $(".color").on("mouseleave", function() {
+       $(this).find('.c_info').hide();  //or $('.overlay').hide()
     });
 
     $('.fa-trash-alt').on('click', function () {

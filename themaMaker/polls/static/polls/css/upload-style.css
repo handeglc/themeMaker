@@ -45,6 +45,7 @@ h4{
   height:100%; 
   float: left;
   width: 100%;
+  border:1px dashed #00000042;
 }
 .groups{
   display: flex;
@@ -56,7 +57,7 @@ h4{
 
 input[type="color"] {
   -webkit-appearance: none;
-  border:1px dashed #00000042;
+  
 }
 input[type="color"]::-webkit-color-swatch-wrapper {
   padding: 0;
