@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from sklearn.cluster import KMeans
 from scipy.sparse import dok_matrix, csr_matrix
 import numpy as np
+from random import randint
 
 def update_clusters():
     print("updating clusters")
@@ -34,6 +35,10 @@ def update_clusters():
                             mutual.append(u)
 
                 #print(mutual)
+                if len(mutual)==0:
+                    all_list = list(all_color_ids)
+                    rand = randint(0,len(all_list))
+                    mutual.append(all_list[rand])
                 ratings_m[i,user_review.color.id] = mutual[0]
         
         #print(ratings_m.tocsr())

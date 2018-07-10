@@ -8,6 +8,7 @@
 <script src="https://s3.amazonaws.com/codecademy-content/projects/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{% static "polls/js/upload.js" %}"></script>
+<script src="{% static "polls/js/buttons.js" %}"></script>
 <body>
   <div class="logo-class">
     <a href="/" id="logo">ThemeMaker</a>
@@ -46,6 +47,10 @@
     </form>
   {% endfor %}
 
+  <div id="loadingDiv">
+    <i class="fas fa-spinner"></i>
+  </div>
+  
   <form class= "color-picker">
     {% csrf_token %}
     <div class="groups" id="recommendations" hidden>  

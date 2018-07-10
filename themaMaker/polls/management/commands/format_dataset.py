@@ -25,7 +25,7 @@ class Command(BaseCommand):
 			c = Color.objects.filter(id=randint(0,limit))
 		return c[0]
 
-	def id_generator(self,size=6, chars=string.ascii_uppercase + string.digits):
+	def id_generator(self,size=6, chars=string.ascii_lowercase + string.digits):
 		return ''.join(choice(chars) for _ in range(size))
 
 	def add_some_data(self):
@@ -37,9 +37,9 @@ class Command(BaseCommand):
 		new_users = [self.id_generator() for i in range(0,k)]
 
 		cg_list = []
-		for i in range(1,70):
+		for i in range(1,10):
 			#create cg
-			k = randint(1,20)
+			k = randint(1,10)
 			color_obj_list = [self.random_color() for i in range(0,k)]
 			color_list = [self.random_color().color_id_hex for i in range(0,k)]
 			cg = Color_Groups(how_many_colors=len(color_list), group_tendency=cg_group_tendency(color_list))
@@ -85,7 +85,7 @@ class Command(BaseCommand):
 		#reviews = Review.objects.all()
 		all_users = User.objects.all()
 
-		'''for user in all_users:
+		for user in all_users:
 			try:
 				u_profile = User_Profile.objects.filter(user=user)[0]
 			except:
@@ -99,7 +99,7 @@ class Command(BaseCommand):
 					rev.color = color
 					rev.user_name = user.username
 					rev.rating = 5 
-					rev.save()'''
+					rev.save()
 
 		#self.add_some_data()
 

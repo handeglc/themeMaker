@@ -10,6 +10,8 @@ urlpatterns = [
     re_path(r'^index/', LoginView.as_view()),
     re_path(r'^signup/', views.SignUpView.as_view()),
     re_path(r'^delete_cg/', views.delete_cg_view, name='delete_cg_view'),
+    re_path(r'^recommend/', views.user_recommendation_list, name='user_recommendation_list'),
+    re_path(r'^save/', SaveView.as_view()),
     re_path(r'^$', LoginView.as_view()),
     re_path(r'^upload/recommend/', views.user_recommendation_list, name='user_recommendation_list'),
     re_path(r'^upload/save/', SaveView.as_view()),

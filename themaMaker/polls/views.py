@@ -70,27 +70,35 @@ class LoginView(View):
 			
 			c = {"liked_cg":cg_list}
 		return c
+		#return c
 
 	def get(self, request):
 		c = self.liked_cg(request)
 		return render(request,'login.html',c)
 
 	def post(self, request, *args, **kwargs):
-		
+		c = {}
 		username = request.POST['username']
 		password = request.POST['password']
-		user = authenticate(request, username=username, password=password)
-		c = {}
-		
-		if user is not None:
-			login(request, user)
-			c = self.liked_cg(request)
-			c["message"] = "you logged in!"
-			return render(request,'index.html',c)
+
+		user = User.objects.filter(username= username)
+		if user.count() == 0:
+			c["message"] = "There is not such a user with username: "+ username
 		else:
-			c["message"] = "try again!"
-			c = self.liked_cg(request)
-			return render(request,'login.html',c)
+			user = authenticate(request, username=username, password=password)
+			
+			if user is not None:
+				login(request, user)
+				#c = self.liked_cg(request)
+				print(c)
+				c["message"] = "done"
+				print(c)
+				#return render(request,'index.html',c)
+			else:
+				c["message"] = "Your username or password is wrong, try again!"
+				#return render(request,'login.html',c)
+		return JsonResponse(c)
+
 
 def logout_view(request):
     logout(request)
@@ -201,7 +209,7 @@ def user_recommendation_list(request):
 		temp = []
 		length = len(color_list)
 		while len(temp) < 8:
-			c = color_list[randint(0,length)]
+			c = color_list[randint(0,length-1)]
 			if c not in temp:
 				temp.append(c)
 

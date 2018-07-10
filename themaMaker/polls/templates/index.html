@@ -7,27 +7,45 @@
 	<script src="{% static "polls/js/main.js" %}"></script>
 	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" data-auto-replace-svg="nest"></script>
+	<script src="{% static "polls/js/buttons.js" %}"></script>
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'polls/css/style.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'polls/css/jquery-ui.css' %}" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
 	<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">-->
 
 	<body>
 		<div class="logo-class">
 			<a href="/" id="logo">ThemeMaker</a>
 		</div>
-
 		{% if user.is_authenticated %}
-			<div id="user_p">
-				<div id ="user_profile">
+			<div class="row">
+				<div id ="user_profile" class="col-sm">
 					<p>Hello, {{ user.username }}</p>
 					<form id="logout" >
 						{% csrf_token %}
 						<input class="button" id = "submit_logout" type="submit" value="Logout"/><br/>
 					</form>
+
+					<div id="user_preferences">
+						<p>Your color groups: <i class="far fa-heart"></i></p>
+						
+						<div id=user_color_g>
+							{% for cgs in liked_cg %}
+								<div class="color_group">
+								{% for c in cgs.list %}
+									<div class="color" style="background-color:{{ c.color_id_hex }};"><h4 display=none class="c_info">{{ c }}</h4></div>
+								{% endfor %}
+								</div>
+								<i cg_list_id="{{ cgs.id }}" class="far fa-trash-alt" ></i></br>
+							{% endfor %}
+						</div>
+					</div>
 				</div>
-				<div id="upload_files">
+
+				<div id="upload_files" class="col-sm">
 					<p>Upload your CSS files: </p><br>
 					<form action="upload/" method="POST" id="post-form" enctype="multipart/form-data">
 						{% csrf_token %}
@@ -37,21 +55,24 @@
 						<input class="button" id = "submit" type="submit" name="op" value="Upload"/><br/>
 					</form>
 				</div>
-			</div>
-			<div id="user_preferences">
-				<h4>Your color groups: <i class="far fa-heart"></i></h4>
 				
-				<div id=user_color_g>
-					{% for cgs in liked_cg %}
-						<div class="color_group">
-						{% for c in cgs.list %}
-							<div class="color" style="background-color:{{ c.color_id_hex }};"><h4 display=none class="c_info">{{ c }}</h4></div>
-						{% endfor %}
-						</div>
-						<i cg_list_id="{{ cgs.id }}" class="far fa-trash-alt" ></i></br>
-					{% endfor %}
-				</div>
 
+				<div class="recom col-sm">
+					<form class= "color-picker">
+						<div class="groups" id="recommendations" hidden>  
+	    				</div>
+
+						<input class="submit-form" type="submit" value="Recommend colors for me!">
+						<input class="submit-form" type="submit" value="I liked this color set!"/> 
+						<a id="hide-option" title="If you want to store this color group,  click 'I liked this color set!'. For recommendations, lock at least 3 colors you like. If you want recommendation according to your locked colors and stored color groups if there is any, click 'Recommend the rest of the colors', then it will display recommended colors. ">
+						<i class="far fa-question-circle"></i>
+				      </a>
+				      <div id="loadingDiv">
+					    <i class="fas fa-spinner"></i>
+					  </div><br/>
+				    </form>
+				</div>
+			
 			</div>
 		{% endif %}
 
@@ -63,7 +84,8 @@
 		  </ul>
 		  <div id="login_tab">
 			<div id="login_form">
-				<p>You are not logged in</p> 
+				<p>You are not logged in</p>
+				<div class="alert alert-warning" role="alert" id = "error" hidden> </div>
 				{% block content %}
 				{% endblock %}
 			</div>
@@ -71,7 +93,7 @@
 		  <div id="signup_tab">
 			<div id="user_signup">
 				<p>Register</p> 
-				<h4 id = "notMatch" hidden> The passwords you entered are not the same! </h4>
+				<div class="alert alert-warning" role="alert" id = "notMatch" hidden>The passwords you entered are not the same!</div>
 				<form id="signup">
 					{% csrf_token %}
 				    <label for="username">User name:</label>

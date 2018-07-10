@@ -21,7 +21,7 @@ $(document).ready(function() {
 
     $(document).on('change', '.one_file', add);
     //$(document).on('click', '#logout', logout_function);
-    if ($('#user_p').is(':visible')){
+    if ($('.row').is(':visible')){
       $( "#tabs" ).hide();
     }
 
@@ -64,6 +64,47 @@ $(document).ready(function() {
         });
 
     });
+
+
+    $('#login-form').submit(function( e ) {
+      e.preventDefault();
+      console.log("login clicked");
+      var uname = $('#username').val();
+      var pass = $('#password').val();
+
+      $.ajax({
+          type: "POST",
+          url: "/",
+          data: {"username":uname, "password": pass},
+          dataType: "json",
+          headers: { "X-CSRFToken": getCookie("csrftoken") },
+          success: function(data) {
+              //var obj = jQuery.parseJSON(data); if the dataType is not specified as json uncomment this
+              // do what ever you want with the server response
+              console.log("login data sent");
+              console.log(warning);
+              var warning= data["message"];
+              if(warning == "done" ){
+                window.location.reload();
+              }
+              else{
+                $( "#error" ).empty();
+                $("#error").removeAttr('hidden');
+                $("#error").append(warning);
+              }
+              
+            
+
+          },
+          error: function() {
+              //alert('error handing here');
+          }
+      });
+      
+     
+    });
+
+
 
       
     $('#signup').submit(function( e ) {
@@ -114,9 +155,8 @@ $(document).ready(function() {
         method: "GET",
       });
       request.done(function( msg ) {
-        $( "#user_p" ).fadeOut( "slow" );
+        $( ".row" ).fadeOut( "slow" );
         $( "#tabs" ).show();
-        $("#user_preferences").fadeOut( "slow" );
         console.log("logout happened");
       });
     });

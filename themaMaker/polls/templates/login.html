@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<form action="" method="post">
+<form id="login-form">
 	{% csrf_token %}
     <label for="username">User name:</label>
     <input class="input_login" type="text" name="username" value="" id="username"><br>
