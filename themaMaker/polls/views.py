@@ -2,50 +2,89 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 import re
 import webcolors
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from polls.models import *
 from polls import color
-from django.template.loader import render_to_string
 from .suggestions import update_clusters
-from django.contrib.auth.decorators import login_required
 from random import randint,choice
 from django.core.management import call_command
+import cv2
+from sklearn.cluster import KMeans
 
 class UploadView(View):
+	def dominantColors(self,img,cluster=3):
+
+		#open image
+		img = cv2.imread('/Users/hande/Desktop/Project/themaMaker/uploads/'+ img)
+
+		if img is not None:
+			print("None img")
+
+		#convert to RGB from BGR
+		img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+		        
+		#reshaping to a list of pixels
+		img = img.reshape((img.shape[0] * img.shape[1], 3))
+
+		#save image after operations
+		#self.IMAGE = img
+
+		#using k-means to cluster pixels
+		kmeans = KMeans(n_clusters = cluster)
+		kmeans.fit(img)
+
+		#getting the colors as per dominance order
+		colors = kmeans.cluster_centers_
+
+		#save labels
+		labels = kmeans.labels_
+		
+		return colors.astype(int)
 
 	def post(self, request, *args, **kwargs):
 
 		files=request.FILES.getlist("filee")
 		file_list=[]
 		for f in files:
-			instance = File(name_field=f.name ,file_field=f)
-			instance.save()
-			
-			with open('/Users/hande/Desktop/Project/themaMaker/uploads/'+f.name, newline='') as myFile:
-				colors = re.findall(r'color:\s(#[a-zA-Z0-9]*|[a-z]*)',myFile.read(), re.DOTALL)
+			css_file_name = re.findall('.*\.css$', f.name)
+			jpg_file_name = re.findall('.*\.jpg$', f.name)
 
-			colors = [elem for elem in colors if (elem != "transparent")]
+			if len(css_file_name) == 0 and len(jpg_file_name) == 0:
+				return
+			else:
+				instance = File(name_field=f.name ,file_field=f)
+				instance.save()
 
-			for x in range(0,len(colors)):
-				if ( colors[x][0] != '#'):
-					temp = webcolors.html5_parse_legacy_color(colors[x])
-					temp_r = str(hex(temp.red))[2:] if(len(str(hex(temp.red)))==4) else ('0'+ str(hex(temp.red))[2])
-					temp_g = str(hex(temp.green))[2:] if(len(str(hex(temp.green)))==4) else ('0'+ str(hex(temp.green))[2])
-					temp_b = str(hex(temp.blue))[2:] if(len(str(hex(temp.blue)))==4) else ('0'+ str(hex(temp.blue))[2])
-					colors[x] = '#' + temp_r + temp_g + temp_b
+				if len(css_file_name)>0:
+					with open('/Users/hande/Desktop/Project/themaMaker/uploads/'+css_file_name[0], newline='') as myFile:
+						colors = re.findall(r'color:\s(#[a-zA-Z0-9]*|[a-z]*)',myFile.read(), re.DOTALL)
 
-				elif ( len(colors[x]) < 7 ):
-					temp_r = colors[x][1]
-					temp_g = colors[x][2]
-					temp_b = colors[x][3]
-					colors[x] = '#'+ temp_r + temp_r + temp_g + temp_g + temp_b + temp_b
+					colors = [elem for elem in colors if (elem != "transparent")]
 
-			color_no_list = list(range(len(colors)))
-			file_list.append({"name": f.name, "color_list":colors, "color_no_list": color_no_list })
+					for x in range(0,len(colors)):
+						if ( colors[x][0] != '#'):
+							temp = webcolors.html5_parse_legacy_color(colors[x])
+							temp_r = str(hex(temp.red))[2:] if(len(str(hex(temp.red)))==4) else ('0'+ str(hex(temp.red))[2])
+							temp_g = str(hex(temp.green))[2:] if(len(str(hex(temp.green)))==4) else ('0'+ str(hex(temp.green))[2])
+							temp_b = str(hex(temp.blue))[2:] if(len(str(hex(temp.blue)))==4) else ('0'+ str(hex(temp.blue))[2])
+							colors[x] = '#' + temp_r + temp_g + temp_b
+
+						elif ( len(colors[x]) < 7 ):
+							temp_r = colors[x][1]
+							temp_g = colors[x][2]
+							temp_b = colors[x][3]
+							colors[x] = '#'+ temp_r + temp_r + temp_g + temp_g + temp_b + temp_b
+					
+				else:
+					cols = self.dominantColors(jpg_file_name[0],4)
+					colors = [webcolors.rgb_to_hex(tuple(t)) for t in cols]
+					#print(colors)
+
+				color_no_list = list(range(len(colors)))
+				file_list.append({"name": f.name, "color_list":colors, "color_no_list": color_no_list })
+
 
 		return render(request,'more.html', {"files": file_list })
 
