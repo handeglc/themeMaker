@@ -13,6 +13,7 @@ from django.template.loader import render_to_string
 from .suggestions import update_clusters
 from django.contrib.auth.decorators import login_required
 from random import randint,choice
+from django.core.management import call_command
 
 class UploadView(View):
 
@@ -117,12 +118,17 @@ def delete_cg_view(request):
 
 
 class SaveView(View):
-	def post(self, request, *args, **kwargs):
+
+	def get_color_hex_list(self,request):
 		data = request.POST.get("datas",None);
 
 		colors = re.findall(r'favcolor=%23([a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9])',data, re.DOTALL) #color hexes but without "#"
 		colors_hex = [ "#"+elem for elem in colors] #add '#' to the beginning of the color codes
+		return colors_hex
+
+	def post(self, request, *args, **kwargs):
 		
+		colors_hex = self.get_color_hex_list(request)
 		color_set = Color_Groups(how_many_colors=len(colors_hex), group_tendency=color.cg_group_tendency(colors_hex))
 		color_set.save()
 		for color_hex in colors_hex:
@@ -142,7 +148,7 @@ class SaveView(View):
 			user = User_Profile.objects.get(user = user_obj)
 			user.liked_color_groups.add(color_set)
 
-		update_clusters()
+		#update_clusters()
 			
 		return JsonResponse({"done": data})
 
@@ -168,66 +174,125 @@ class SignUpView(View):
 			return JsonResponse({"saved": "same_name_taken"})
 
 
+class RecommendationView(View):
+	def post(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			if request.POST["which"] == "locked_recom": #make recommendation according to locked colors
+				print(request.POST["locked"])
+				print("oki doki")
+				return self.locked_recom(request)
+				#return JsonResponse({'username': "",'color_list': ""})
+			else:
+				return self.user_recommendation_list(request)
+		else:
+			return JsonResponse({'username': "",'color_list': ""})
 
-@login_required
-def user_recommendation_list(request):
+	def locked_recom(self,request):
+		# get locked colors and process them
+		s = SaveView()
+		colors_hex = SaveView.get_color_hex_list(s,request)
+		print(colors_hex)
+		locked = request.POST["locked"]
+		locked = list(filter(lambda x: (x != "[") and (x!="]") and (x !="'") and (x!=",") and (x!=" ") and (x!='"'), locked))
+		locked_color_indexes = [int(t) for t in locked]
+		print(locked_color_indexes)
+		locked_colors = [colors_hex[t] for t in locked_color_indexes]
+		print(locked_colors)
 
-	# get request user reviewed colors
-	user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('color')
-	user_reviews_color_ids = set(map(lambda x: x.color.id, user_reviews))
+		# get clusters of clors
+		clusters = []
+		for c in locked_colors:
+			if (Color.objects.filter(color_id_hex=c).count() != 0):
+				color_obj = Color.objects.get(color_id_hex=c)
+				color_cluster = set(color_obj.color_cluster_set.all())
+				print(color_cluster)
+			else: #if the color doesn't exist in db
+				color_obj = Color(color_id_hex = c, is_light= color.color_is_light(c), is_saturated= color.color_is_saturated(c), color_tendency = color.color_tendency(c))
+				color_obj.save()
+				color_cluster = set()
+				
+			clusters.append(color_cluster)
+		
+		# find the common clusters
+		mutual_clusters = set.intersection(*clusters)
+		print("mutual: --------------------------")
+		print(mutual_clusters)
 
-    # get request user cluster name (just the first one righ now)
-	try:
-		#update_clusters()
-		user_cluster_name = \
-			User.objects.get(username=request.user.username).cluster_set.first().name
-	except: # if no cluster assigned for a user, update clusters
-		update_clusters()
-		user_cluster_name = \
-			User.objects.get(username=request.user.username).cluster_set.first().name
-    
-	# get usernames for other memebers of the cluster
-	user_cluster_other_members = \
-		Cluster.objects.get(name=user_cluster_name).users \
-			.exclude(username=request.user.username).all()
-	other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
+		# if there is no mutual cluster, update color clusters
+		if len(mutual_clusters) == 0:
+			call_command('recom')
+			return self.user_recommendation_list(request)
 
-	# get reviews by those users, excluding colors reviewed by the request user
-	other_users_reviews = \
-		Review.objects.filter(user_name__in=other_members_usernames) \
-			.exclude(color__id__in=user_reviews_color_ids)
-	other_users_reviews_color_ids = set(map(lambda x: x.color.id, other_users_reviews))
+		# get all the colors in mutual_clusters in nested list. !!! redundant work here fix later
+		recommended_color_lists = [cluster.colors.all() for cluster in mutual_clusters]
+		print(recommended_color_lists)
+		# select a random color cluster
+		color_list_pre = [color.color_id_hex for color in recommended_color_lists[randint(0,len(recommended_color_lists)-1)]]
+		print("############################")
+		#select random colors from the selected_cluster
+		color_list = [color_list_pre[randint(0,len(color_list_pre)-1)] for i in range(0,8)]
+		print(color_list)
+		return JsonResponse({'username': request.user.username ,'color_list': color_list})
 
-	# then get a color list including the previous IDs, order by rating
-	color_list = sorted(
-		list(Color.objects.filter(id__in=other_users_reviews_color_ids)), 
-		key=lambda x: int(x.average_rating()), 
-		reverse=True
-	)
-	##############################################
-	if len(color_list) > 8:
-		temp = []
-		length = len(color_list)
-		while len(temp) < 8:
-			c = color_list[randint(0,length-1)]
-			if c not in temp:
-				temp.append(c)
-
-		color_list = temp
-	##############################################
-	color_hex_list = [color.color_id_hex for color in color_list]
-
-	if(len(color_hex_list)==0):
-		color_hex_list = [random_color() for i in range(0,5)]
-	##############################################
-
-	return JsonResponse( 
-		{'username': request.user.username,'color_list': color_hex_list}
-	)
-
-def random_color():
-	limit = Color.objects.count()
-	c = Color.objects.filter(id=randint(1,limit))
 	
-	return c[0].color_id_hex
+	def user_recommendation_list(self,request):
+
+		# get request user reviewed colors
+		user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('color')
+		user_reviews_color_ids = set(map(lambda x: x.color.id, user_reviews))
+
+	    # get request user cluster name (just the first one righ now)
+		try:
+			#update_clusters()
+			user_cluster_name = \
+				User.objects.get(username=request.user.username).cluster_set.first().name
+		except: # if no cluster assigned for a user, update clusters
+			update_clusters()
+			user_cluster_name = \
+				User.objects.get(username=request.user.username).cluster_set.first().name
+	    
+		# get usernames for other memebers of the cluster
+		user_cluster_other_members = \
+			Cluster.objects.get(name=user_cluster_name).users \
+				.exclude(username=request.user.username).all()
+		other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
+
+		# get reviews by those users, excluding colors reviewed by the request user
+		other_users_reviews = \
+			Review.objects.filter(user_name__in=other_members_usernames) \
+				.exclude(color__id__in=user_reviews_color_ids)
+		other_users_reviews_color_ids = set(map(lambda x: x.color.id, other_users_reviews))
+
+		# then get a color list including the previous IDs, order by rating
+		color_list = sorted(
+			list(Color.objects.filter(id__in=other_users_reviews_color_ids)), 
+			key=lambda x: int(x.average_rating()), 
+			reverse=True
+		)
+		##############################################
+		if len(color_list) > 8:
+			temp = []
+			length = len(color_list)
+			while len(temp) < 8:
+				c = color_list[randint(0,length-1)]
+				if c not in temp:
+					temp.append(c)
+
+			color_list = temp
+		##############################################
+		color_hex_list = [color.color_id_hex for color in color_list]
+
+		if(len(color_hex_list)==0):
+			color_hex_list = [self.random_color() for i in range(0,5)]
+		##############################################
+
+		return JsonResponse( 
+			{'username': request.user.username,'color_list': color_hex_list}
+		)
+
+	def random_color(self):
+		limit = Color.objects.count()
+		c = Color.objects.filter(id=randint(1,limit))
+		
+		return c[0].color_id_hex
 	

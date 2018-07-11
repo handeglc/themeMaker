@@ -91,9 +91,7 @@ $(document).ready(function() {
                 $( "#error" ).empty();
                 $("#error").removeAttr('hidden');
                 $("#error").append(warning);
-              }
-              
-            
+              } 
 
           },
           error: function() {

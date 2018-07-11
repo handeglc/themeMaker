@@ -66,11 +66,29 @@ $(document).ready(function() {
         }
         if(buttonpressed=="Recommend colors for me!"){
           var datastring = $(this).serialize();
+          var locked= []
+          var checkbox = $(this).children(".groups_checkbox");
+          checkbox.children().each(function( i ) {
+            if ( $(this).children().hasClass("fa-lock" )) {
+              locked.push($(this).attr("color-id"))
+            }
+          });
+          var locked_serialized = JSON.stringify(locked);
+          console.log(locked);
+          console.log(locked_serialized);
           console.log(datastring);
+
+          if (locked.length != 0){
+            which_op = "locked_recom";
+          }else{
+            which_op = "just_recom";
+          }
+          
+
           $.ajax({
               type: "POST",
               url: "recommend/",
-              data: {"datas":datastring},
+              data: {"datas":datastring,"locked": locked_serialized, "which": which_op},
               dataType: "json",
               headers: { "X-CSRFToken": getCookie("csrftoken") },
               success: function(data) {

@@ -59,6 +59,18 @@ class Cluster(models.Model):
     def get_members(self):
         return "\n".join([u.username for u in self.users.all()])
 
+class Color_Cluster(models.Model):
+	name = models.CharField(max_length=100, default="")
+	colors = models.ManyToManyField(Color)
+
+	def get_colors(self):
+		return "\n".join([u.color_id_hex for u in self.colors.all()])
+	'''color_id = models.IntegerField()
+	cg_id = models.IntegerField()
+	c_count = models.IntegerField()
+	c_light = models.IntegerField()
+	c_satur = models.IntegerField()'''
+
 class File(models.Model):
 	name_field = models.CharField(max_length=100)
 	file_field = models.FileField(upload_to='uploads/')
