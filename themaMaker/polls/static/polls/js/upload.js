@@ -16,12 +16,35 @@ $(document).ready(function() {
     });
 
 
-    $('div i').on('click', function () {
+    $('.lock-icon').on('click', function () {
       console.log("should be locked");
       $(this)
         .find('[data-fa-i2svg]')
         .toggleClass('fa-lock-open')
         .toggleClass('fa-lock');
+    });
+
+    $('.fa-times').on('click', function () {
+      console.log("carping"); 
+      var the = $(this);
+      var chil = the.parentsUntil(".groups_checkbox").parent();
+
+      var index = the.attr("color-id");
+      console.log("index: "+index);
+      var nearest = chil.parent().children().eq(2).children().eq(index);
+      console.log(nearest.val());
+      nearest.addClass("deleted");
+      nearest.fadeOut();
+
+      chil.children().eq(index*2+1).addClass("deleted");
+      chil.children().eq(index*2).addClass("deleted");
+
+      chil.children().eq(index*2+1).fadeOut();
+      chil.children().eq(index*2).fadeOut();
+            /*var el = nearest.val()
+      console.log(el);
+      var elem = $(".colors").eq(index);
+      console.log(elem.val());*/
     });
 
     

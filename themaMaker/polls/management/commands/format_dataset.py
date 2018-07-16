@@ -28,6 +28,29 @@ class Command(BaseCommand):
 	def id_generator(self,size=6, chars=string.ascii_lowercase + string.digits):
 		return ''.join(choice(chars) for _ in range(size))
 
+	def cg_creator(self):
+		cg_list = []
+		for i in range(1,100):
+			#create cg
+			k = randint(1,15)
+			color_obj_list = [self.random_color() for ik in range(0,k)]
+			color_list = [self.random_color().color_id_hex for ik in range(0,k)]
+			cg = Color_Groups(how_many_colors=len(color_list), group_tendency=cg_group_tendency(color_list))
+			cg.save()
+			for c in color_obj_list:
+				cg.colors.add(c)
+
+			cg_list.append(cg)
+
+		print(cg_list)
+
+		users = User_Profile.objects.all()
+		for user in users:
+			k =randint(1,5)
+			for i in range(1,k):
+				user.liked_color_groups.add(cg_list[randint(1, len(cg_list)-1)])
+
+
 	def add_some_data(self):
 		limit = Color.objects.count()
 		k =randint(1,limit)
@@ -77,7 +100,8 @@ class Command(BaseCommand):
 		#try:
 			# your logic here
 		print("I am here")
-		colors = Color.objects.all()
+		#self.cg_creator()
+		'''colors = Color.objects.all()
 		userS = User.objects.filter(username = "sampleUser")
 		the_user = User_Profile.objects.filter(user = userS[0])
 		cg_of_the_user = the_user[0].liked_color_groups.all()
@@ -99,7 +123,7 @@ class Command(BaseCommand):
 					rev.color = color
 					rev.user_name = user.username
 					rev.rating = 5 
-					rev.save()
+					rev.save()'''
 
 		#self.add_some_data()
 

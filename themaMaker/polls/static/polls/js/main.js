@@ -23,7 +23,7 @@ $(document).ready(function() {
     //$(document).on('click', '#logout', logout_function);
     if ($('.row').is(':visible')){
       $( "#tabs" ).hide();
-    }
+    };
 
     function add() {
       $('#files').append("<input type='file' class='one_file' name='filee'/><br/>");
@@ -37,6 +37,41 @@ $(document).ready(function() {
     });
     $(".color").on("mouseleave", function() {
        $(this).find('.c_info').hide();  //or $('.overlay').hide()
+    });
+
+    $( '.fa-info-circle' ).on( "click", function() {
+      $('#dialog-message').empty();
+      $("#dialog-message").append('<div id = "cg"></div>');
+      console.log("dialog should open");
+      cg_id = $(this).attr("cg_list_id");
+      $("#dialog-message").append("\
+        These are the colors in the color set. \
+      "+cg_id); //blabla
+
+      $.ajax({
+            type: "POST",
+            url: "show_cg/",
+            data: {"id": cg_id},
+            dataType: "json",
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            success: function(data) {
+                console.log("success show");
+                cols = data["colors"];
+                //$('#dialog-message').append("<div class='groups'>");
+                //$('#cg').removeData();
+                for (var i = cols.length - 1; i >= 0; i--) {
+                  var html = "<div class='colors' style='background-color:"+cols[i]+";'><h8 display=none class='c_info'>"+cols[i]+"</h8></div>";
+                  $('#cg').append(html);
+                }
+                //$('#dialog-message').append("</div>");
+            },
+            error: function() {
+                //alert('error handing here');
+            }
+        });
+
+      $("#dialog-message").dialog();
+
     });
 
     $('.fa-trash-alt').on('click', function () {
@@ -61,7 +96,7 @@ $(document).ready(function() {
             error: function() {
                 //alert('error handing here');
             }
-        });
+      });
 
     });
 
@@ -99,9 +134,7 @@ $(document).ready(function() {
           }
       });
       
-     
     });
-
 
 
       
@@ -113,6 +146,8 @@ $(document).ready(function() {
       var repass = $('#ps2').val();
 
       if(pass != repass){
+        var warning= "The passwords you entered are not the same!"
+        $("#notMatch").text(warning)
         $("#notMatch").removeAttr('hidden');
         console.log("should show");
       }
@@ -131,8 +166,9 @@ $(document).ready(function() {
                   window.location.reload();
                 }
                 else{
-                  var warning= "<h4>This username was already taken, try another one!<h4>"
-                  $(warning).insertAfter("#notMatch")
+                  var warning= "This username was already taken, try another one!"
+                  $("#notMatch").text(warning);
+                  $("#notMatch").removeAttr('hidden');
                 }
 
             },

@@ -49,7 +49,7 @@ class Command(BaseCommand):
 
 		df = pd.DataFrame(data=data)
 		#print(df)
-		num = int(df.iloc[[3000]]["color"])
+		#num = int(df.iloc[[3000]]["color"])
 		#print(num)
 		k = int(len(color_groups) / 30 +1)
 		kmeans = KMeans(n_clusters=k)

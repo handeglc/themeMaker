@@ -17,24 +17,19 @@
   {% for entry in files %}
     <form class= "color-picker">
       {% csrf_token %}
-      
         <h4>{{ entry.name }} : </h4>
       	<div class="groups" >
       	{% for color in entry.color_list %}
       	    
-            <input class="colors" type="color" name="favcolor" value="{{ color }}"><br>
-            
-      	    <!--
-            <img src="http://www.emoji.co.uk/files/apple-emojis/objects-ios/759-lock.png" width="15" height="15"> 
-            -->
+            <input class="colors" type="color" name="favcolor" value="{{ color }}">
 
         {% endfor %}
       	</div>
 
         <div class="groups_checkbox" >
           {% for color_no in entry.color_no_list %}
-            <!--<input class="checkbox" type="checkbox" name="lock" value="Lock">-->
-            <i class="fas fa-lock-open" color-id='{{ color_no }}'' ></i>
+            <i class="fas fa-lock-open lock-icon" color-id='{{ color_no }}'' ></i>
+            <i class="fas fa-times" color-id='{{ color_no }}''></i>
           {% endfor %}
         </div>
 

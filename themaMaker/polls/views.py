@@ -13,7 +13,12 @@ from django.core.management import call_command
 import cv2
 from sklearn.cluster import KMeans
 
+
 class UploadView(View):
+	def get(self, request):
+		print("deneme sadece")
+		return render(request,'more.html', {"files": "file_list" })
+
 	def dominantColors(self,img,cluster=3):
 
 		#open image
@@ -49,7 +54,7 @@ class UploadView(View):
 		file_list=[]
 		for f in files:
 			css_file_name = re.findall('.*\.css$', f.name)
-			jpg_file_name = re.findall('.*\.jpg$', f.name)
+			jpg_file_name = re.findall('.*\.jpg$|.*\.JPG$', f.name)
 
 			if len(css_file_name) == 0 and len(jpg_file_name) == 0:
 				return
@@ -78,12 +83,13 @@ class UploadView(View):
 							colors[x] = '#'+ temp_r + temp_r + temp_g + temp_g + temp_b + temp_b
 					
 				else:
-					cols = self.dominantColors(jpg_file_name[0],4)
+					cols = self.dominantColors(jpg_file_name[0], 5 )
 					colors = [webcolors.rgb_to_hex(tuple(t)) for t in cols]
 					#print(colors)
 
 				color_no_list = list(range(len(colors)))
-				file_list.append({"name": f.name, "color_list":colors, "color_no_list": color_no_list })
+				print(instance.file_field.name)
+				file_list.append({"name": f.name,"uploaded_fname": instance.file_field.path,"color_list":colors, "color_no_list": color_no_list })
 
 
 		return render(request,'more.html', {"files": file_list })
@@ -114,6 +120,7 @@ class LoginView(View):
 
 	def get(self, request):
 		c = self.liked_cg(request)
+
 		return render(request,'login.html',c)
 
 	def post(self, request, *args, **kwargs):
@@ -155,6 +162,16 @@ def delete_cg_view(request):
 
 	return JsonResponse({"saved": "deleted"})
 
+def show_cg_view(request):
+	colors_list = []
+	if(request.method == 'POST'):
+		cg_id = request.POST["id"]
+		cg = Color_Groups.objects.filter(id=cg_id)
+		if(cg.count() != 0):
+			colors = cg[0].colors.all()
+			colors_list = [c.color_id_hex for c in colors]
+	return JsonResponse({"colors": colors_list})
+
 
 class SaveView(View):
 
@@ -163,6 +180,14 @@ class SaveView(View):
 
 		colors = re.findall(r'favcolor=%23([a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9])',data, re.DOTALL) #color hexes but without "#"
 		colors_hex = [ "#"+elem for elem in colors] #add '#' to the beginning of the color codes
+		for color_hex in colors_hex:
+			database_color = Color.objects.filter(color_id_hex=color_hex)
+			if database_color.count() == 0:
+				color_dic = {"color_id_hex": color_hex,"color_tendency": color.color_tendency(color_hex), "is_light": color.color_is_light(color_hex), "is_saturated":color.color_is_saturated(color_hex)}
+				c = Color(**color_dic)
+				c.save()
+			else:
+				c = database_color[0]
 		return colors_hex
 
 	def post(self, request, *args, **kwargs):
@@ -189,7 +214,7 @@ class SaveView(View):
 
 		#update_clusters()
 			
-		return JsonResponse({"done": data})
+		return JsonResponse({"done": "data"})
 
 
 class SignUpView(View):
@@ -234,6 +259,7 @@ class RecommendationView(View):
 		locked = request.POST["locked"]
 		locked = list(filter(lambda x: (x != "[") and (x!="]") and (x !="'") and (x!=",") and (x!=" ") and (x!='"'), locked))
 		locked_color_indexes = [int(t) for t in locked]
+		print("locked_colors")
 		print(locked_color_indexes)
 		locked_colors = [colors_hex[t] for t in locked_color_indexes]
 		print(locked_colors)
@@ -269,7 +295,7 @@ class RecommendationView(View):
 		color_list_pre = [color.color_id_hex for color in recommended_color_lists[randint(0,len(recommended_color_lists)-1)]]
 		print("############################")
 		#select random colors from the selected_cluster
-		color_list = [color_list_pre[randint(0,len(color_list_pre)-1)] for i in range(0,8)]
+		color_list = [color_list_pre[randint(0,len(color_list_pre)-1)] for i in range(0,5)]
 		print(color_list)
 		return JsonResponse({'username': request.user.username ,'color_list': color_list})
 
@@ -308,11 +334,13 @@ class RecommendationView(View):
 			key=lambda x: int(x.average_rating()), 
 			reverse=True
 		)
+		print("color_list:::::::::::::")
+		print(color_list)
 		##############################################
-		if len(color_list) > 8:
+		if len(color_list) > 5:
 			temp = []
 			length = len(color_list)
-			while len(temp) < 8:
+			while len(temp) < 5:
 				c = color_list[randint(0,length-1)]
 				if c not in temp:
 					temp.append(c)
@@ -320,7 +348,8 @@ class RecommendationView(View):
 			color_list = temp
 		##############################################
 		color_hex_list = [color.color_id_hex for color in color_list]
-
+		print("color_hex_list:::::::::::::")
+		print(color_hex_list)
 		if(len(color_hex_list)==0):
 			color_hex_list = [self.random_color() for i in range(0,5)]
 		##############################################

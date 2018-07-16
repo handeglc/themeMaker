@@ -28,9 +28,11 @@ $(document).ready(function() {
     $(document)
       .ajaxStart(function () {
         $loading.show();
+        $("body").css("cursor", "progress");
       })
       .ajaxStop(function () {
         $loading.hide();
+        $("body").css("cursor", "default");
       });
 
 
@@ -44,9 +46,11 @@ $(document).ready(function() {
       console.log("submit clicked");
       
       e.preventDefault();
-
+      console.log($(this));
+      console.log($(this).find(':input').not(".deleted"));
+      var datastring = $(this).find(':input').not(".deleted").serialize();
         if(buttonpressed=="I liked this color set!"){
-          var datastring = $(this).serialize();
+          
           console.log(datastring);
           $.ajax({
               type: "POST",
@@ -65,7 +69,7 @@ $(document).ready(function() {
           });
         }
         if(buttonpressed=="Recommend colors for me!"){
-          var datastring = $(this).serialize();
+
           var locked= []
           var checkbox = $(this).children(".groups_checkbox");
           checkbox.children().each(function( i ) {

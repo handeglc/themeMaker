@@ -491,12 +491,15 @@ button.ui-button::-moz-focus-inner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: .2em;
+	padding: .em;
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
-	padding: .4em 1em;
+	padding: .1em 1em;
 	position: relative;
+	background: #eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png);
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	color:#747a7f;
 }
 .ui-dialog .ui-dialog-title {
 	float: left;
@@ -519,7 +522,7 @@ button.ui-button::-moz-focus-inner {
 	position: relative;
 	border: 0;
 	padding: .5em 1em;
-	background: none;
+	background: #eee url(https://subtlepatterns.com/patterns/extra_clean_paper.png);
 	overflow: auto;
 }
 .ui-dialog .ui-dialog-buttonpane {
@@ -833,6 +836,8 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs {
 	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 	padding: .2em;
+	width:50%;
+	margin:auto;
 
 }
 .ui-tabs .ui-tabs-nav {
@@ -841,7 +846,6 @@ button.ui-button::-moz-focus-inner {
 	background-image:url(http://www.truehearts.fi/wordpress/lataukset/shutterstock_288435356-800x450.jpg);
 }
 .ui-tabs .ui-tabs-nav li {
-	text-align:center;
 	list-style: none;
 	float: left;
 	position: relative;
