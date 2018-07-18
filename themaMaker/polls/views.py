@@ -13,6 +13,19 @@ from django.core.management import call_command
 import cv2
 from sklearn.cluster import KMeans
 
+from polls.serializers import ColorSerializer
+from rest_framework import generics
+
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+class ColorListCreate(generics.ListCreateAPIView):
+    queryset = Color.objects.all()
+    serializer_class = ColorSerializer
+
+
 
 class UploadView(View):
 	def get(self, request):

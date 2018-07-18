@@ -1,8 +1,6 @@
-from django.conf.urls import url
 from django.urls import path, re_path
 #from django.conf import settings
 #from django.conf.urls.static import static
-import re
 
 from polls import views
 from polls.views import *
@@ -19,4 +17,5 @@ urlpatterns = [
     re_path(r'^upload/recommend/', RecommendationView.as_view(), name='user_recommendation_list'),
     re_path(r'^upload/save/', SaveView.as_view()),
     re_path(r'^upload/', UploadView.as_view()),
+    re_path(r'api/lead/', views.ColorListCreate.as_view() ),
 ]#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
