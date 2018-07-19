@@ -36,6 +36,7 @@ class Command(BaseCommand):
 		data["c_tend"] = []
 		data["c_light"] = []
 		data["c_satur"] = []
+
 		for tupl in c_cg_list:
 			c = Color.objects.get(id=tupl[0])
 			cg = Color_Groups.objects.get(id=tupl[1])
@@ -45,10 +46,20 @@ class Command(BaseCommand):
 			data["c_tend"].append( 0 if c.color_tendency=="Red" else (1 if c.color_tendency=="Green" else (2 if c.color_tendency=="Blue" else 3) ) )
 			data["c_light"].append( 1 if c.is_light else 0)
 			data["c_satur"].append(1 if c.is_saturated else 0)
-		#print(data)
+
+		for c in all_colors:
+			if c.id not in data["color"]:
+				data["color"].append(c.id)
+				data["color_group"].append(-1)
+				data["count_c"].append(1)
+				data["c_tend"].append(0 if c.color_tendency == "Red" else (1 if c.color_tendency == "Green" else (2 if c.color_tendency == "Blue" else 3)))
+				data["c_light"].append(1 if c.is_light else 0)
+				data["c_satur"].append(1 if c.is_saturated else 0)
+
 
 		df = pd.DataFrame(data=data)
 		#print(df)
+		df.to_csv("out_all.txt", sep='\t')
 		#num = int(df.iloc[[3000]]["color"])
 		#print(num)
 		k = int(len(color_groups) / 30 +1)
@@ -59,8 +70,10 @@ class Command(BaseCommand):
 		new_clusters = {i: Color_Cluster(name=i) for i in range(k)}
 		for cluster in new_clusters.values(): # clusters need to be saved before refering to users
 			cluster.save()
+		print(clustering.labels_)
 		for i,cluster_label in enumerate(clustering.labels_):
-			new_clusters[cluster_label].colors.add(Color.objects.get(id=df.iloc[[i]]["color"]))
 			#print((i,cluster_label))
+			new_clusters[cluster_label].colors.add(Color.objects.get(id=df.iloc[[i]]["color"]))
+
 		print("Color clusters are updated")
 

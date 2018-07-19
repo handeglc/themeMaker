@@ -26,7 +26,7 @@ SECRET_KEY = 'gj9rrhfa9s)_jan4)gwoe^=jxs4(ntxk%e100%-6zm!vcbd=43'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["10.2.2.108","192.168.1.27"]
 
 
 # Application definition
@@ -78,7 +78,7 @@ TEMPLATE_DIRS = (
 
 STATICFILES_DIRS = [
     #os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(PROJECT_ROOT, 'static'),
 ]
 
 LOGIN_REDIRECT_URL = 'index/'
@@ -141,5 +141,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     )
 }
-#STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'

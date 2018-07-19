@@ -11,9 +11,9 @@ from statistics import mean
 
 def update_clusters():
     print("updating clusters")
-    num_reviews = Review.objects.count()
-    update_step = ((num_reviews/100)+1) * 5
-    if num_reviews % update_step > 0: # using some magic numbers here, sorry...
+    num_cgs = Color_Groups.objects.count()
+    update_step = ((num_cgs/100)+1) * 5
+    if num_cgs % update_step > 0: # using some magic numbers here, sorry...
         print("are we in if")
         # Create a sparse matrix from user reviews
         all_user_names = list(map(lambda x: x.username, User.objects.only("username")))
