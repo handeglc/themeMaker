@@ -39,6 +39,13 @@ $(document).ready(function() {
        $(this).find('.c_info').hide();  //or $('.overlay').hide()
     });
 
+    $(".upload-but").tooltip({
+      hide: {
+        effect: "slideDown",
+        delay: 250
+      }
+      });
+
     $( '.fa-info-circle' ).on( "click", function() {
       $('#dialog-message').empty();
       $("#dialog-message").append('<div id = "cg"></div>');

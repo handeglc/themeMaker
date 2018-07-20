@@ -44,7 +44,7 @@ export default class Main extends Component {
     console.log('clicked button');
     console.log(this.state.username);
     console.log(this.state.pass);
-    fetch("http://192.168.1.27:8000/api/login/", {
+    fetch("http://10.2.2.108:8000/api/login/", {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -57,11 +57,13 @@ export default class Main extends Component {
       }),
 
   }).then(function(response) {
+      console.log("just try");
       return response.json();
   }).then(function(data) {
       if (data["message"] != "done"){
         console.log(data["message"]);
-        this.setState({ response: data });
+          {(response) => this.setState({ response: data[message] })};
+        console.log(this.state.response);
       }
       console.log("Data is ok", data);
   }).catch(function(ex) {
@@ -74,7 +76,7 @@ export default class Main extends Component {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <Text>Login Page</Text>
-        <Text>{this.state.response.message}</Text>
+        <Text>{this.state.response}</Text>
         <View style={styles.inputWrapper}>
 
           <TextInput

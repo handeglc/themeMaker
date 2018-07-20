@@ -15,13 +15,12 @@ from sklearn.cluster import KMeans
 
 from polls.serializers import ColorSerializer
 from rest_framework import generics
-from rest_framework.views import APIView
 
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+#from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+#from rest_framework.permissions import IsAuthenticated
+#from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import authentication, permissions
+#from rest_framework import authentication, permissions
 
 class ColorListCreate(generics.ListCreateAPIView):
 	queryset = Color.objects.all()
@@ -357,10 +356,12 @@ class RecommendationView(View):
 
         # get all the colors in mutual_clusters in nested list. !!! redundant work here fix later
         recommended_color_lists = [cluster.colors.all() for cluster in mutual_clusters]
-        print(recommended_color_lists)
-        # select a random color cluster
-        color_list_pre = [color.color_id_hex for color in recommended_color_lists[randint(0,len(recommended_color_lists)-1)]]
         print("############################")
+        print(recommended_color_lists)
+        print("############################")
+        candidate_list = recommended_color_lists[randint(0,len(recommended_color_lists)-1)]
+        color_list_pre = [color.color_id_hex for color in candidate_list]
+
         #select random colors from the selected_cluster
         color_list = [color_list_pre[randint(0,len(color_list_pre)-1)] for i in range(0,5)]
         print(color_list)
@@ -376,9 +377,9 @@ class RecommendationView(View):
         if user_p.count() == 0:
             return JsonResponse({'username': request.user.username, 'color_list': []})
         user_cgs = user_p[0].liked_color_groups.all()
-        user_reviews_color_ids = [cg.id for cg in user_cgs]
+        #user_reviews_color_ids = [cg.id for cg in user_cgs]
 
-        # get request user cluster name (just the first one righ now)
+        # get request user cluster name (just the first one right now)
         try:
             #update_clusters()
             user_cluster_name = \
@@ -392,7 +393,7 @@ class RecommendationView(View):
         user_cluster_other_members = \
             Cluster.objects.get(name=user_cluster_name).users \
                 .exclude(username=request.user.username).all()
-        other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
+        #other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
 
 
         # get reviews by those users, excluding colors reviewed by the request user

@@ -2,8 +2,8 @@ import pandas as pd
 from django.core.management.base import BaseCommand, CommandError
 #from django.db import models
 from polls.models import *
-from random import randint
-import string
+#from random import randint
+#import string
 from polls.color import *
 from sklearn.cluster import KMeans
 
@@ -59,7 +59,7 @@ class Command(BaseCommand):
 
 		df = pd.DataFrame(data=data)
 		#print(df)
-		df.to_csv("out_all.txt", sep='\t')
+		#df.to_csv("out_all.txt", sep='\t')
 		#num = int(df.iloc[[3000]]["color"])
 		#print(num)
 		k = int(len(color_groups) / 30 +1)

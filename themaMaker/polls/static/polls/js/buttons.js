@@ -24,6 +24,19 @@ $(document).ready(function() {
       }
       });
 
+    $(".recommend-but").tooltip({
+      hide: {
+        effect: "slideDown",
+        delay: 250
+      }
+      });
+    $(".liked-but").tooltip({
+      hide: {
+        effect: "slideDown",
+        delay: 250
+      }
+      });
+
     var $loading = $('#loadingDiv').hide();
     $(document)
       .ajaxStart(function () {
@@ -35,6 +48,13 @@ $(document).ready(function() {
         $("body").css("cursor", "default");
       });
 
+
+    $( ":input" ).on("mouseenter", function() {
+        $(this).css("box-shadow","3px 3px 60px 1px #8d9491cf");
+    });
+    $( ":input" ).on("mouseleave", function() {
+       $(this).css("box-shadow","none");
+    });
 
     var buttonpressed; 
     $('.submit-form').click(function() { 

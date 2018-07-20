@@ -3,24 +3,20 @@ from django.contrib.auth.models import User
 from sklearn.cluster import KMeans
 from scipy.sparse import dok_matrix, csr_matrix
 import numpy as np
-from random import randint
-from sklearn.model_selection import train_test_split
+#from random import randint
+#from sklearn.model_selection import train_test_split
 import pandas as pd
-from sklearn.metrics import accuracy_score
+#from sklearn.metrics import accuracy_score
 from statistics import mean
 
 def update_clusters():
     print("updating clusters")
     num_cgs = Color_Groups.objects.count()
     update_step = ((num_cgs/100)+1) * 5
-    if num_cgs % update_step > 0: # using some magic numbers here, sorry...
-        print("are we in if")
-        # Create a sparse matrix from user reviews
+    if num_cgs % update_step > 0: # using some magic numbers here
         all_user_names = list(map(lambda x: x.username, User.objects.only("username")))
-        all_color_ids = list(map(lambda x: x.color.id, Review.objects.only("color")))
         num_users = len(list(all_user_names))
-        ratings_m = dok_matrix((num_users, max(all_color_ids)+1), dtype=np.float32)
-        all_cg = Color_Groups.objects.all()
+
         df = pd.DataFrame(columns=["user","cg_count","cg_tend","c_count"], index=list(range(0,num_users)))
         i=0;
         for user in all_user_names: # each user corresponds to a row, in the order of all_user_names
