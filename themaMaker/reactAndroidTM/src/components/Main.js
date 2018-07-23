@@ -13,7 +13,7 @@ import {
   TextInput,
 } from 'react-native';
 
-import UserInput from './UserInput';
+import UserInput from './LikedCG';
 
 
 
@@ -30,6 +30,7 @@ export default class Main extends Component {
     };
     this.showPass = this.showPass.bind(this);
     this.onPressFunc = this.onPressFunc.bind(this);
+    //this.onChange = this.onChange.bind(this);
 
   }
 
@@ -44,7 +45,7 @@ export default class Main extends Component {
     console.log('clicked button');
     console.log(this.state.username);
     console.log(this.state.pass);
-    fetch("http://10.2.2.108:8000/api/login/", {
+    fetch("http://10.2.2.107:8000/api/login/", {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -58,12 +59,15 @@ export default class Main extends Component {
 
   }).then(function(response) {
       console.log("just try");
+      //console.log(response);
       return response.json();
-  }).then(function(data) {
-      if (data["message"] != "done"){
-        console.log(data["message"]);
-          {(response) => this.setState({ response: data[message] })};
-        console.log(this.state.response);
+  }).then(data => {
+      console.log("data is:")
+      console.log(data);
+      if (data["message"] !== "done"){
+        //console.log(data["message"]);
+        this.setState({ response: data["message"] });
+        //console.log(this.state.response);
       }
       console.log("Data is ok", data);
   }).catch(function(ex) {
@@ -71,7 +75,7 @@ export default class Main extends Component {
   });
   }
 
-  render() {
+    render() {
     console.log("heeey i am here");
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -128,7 +132,10 @@ export default class Main extends Component {
       </KeyboardAvoidingView>
     );
   }
+
+
 }
+
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
