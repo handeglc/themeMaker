@@ -6,15 +6,21 @@ import {
   View,
   Image,
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 import Main from './src/components/Main';
+import LikedCG from "./src/components/LikedCG";
+
+
+const AppNavigator = StackNavigator({
+    Main: { screen: Main },
+    LikedCG: { screen: LikedCG}
+});
 
 export default class loginAnimation extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Main />
-      </View>
+      <AppNavigator />
     );
   }
 }

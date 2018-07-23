@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Dimensions from 'Dimensions';
 import {
   StyleSheet,
   KeyboardAvoidingView,
@@ -11,6 +10,7 @@ import {
   Text,
   Button,
   TextInput,
+  Dimensions,
 } from 'react-native';
 
 import UserInput from './LikedCG';
@@ -58,18 +58,21 @@ export default class Main extends Component {
       }),
 
   }).then(function(response) {
-      console.log("just try");
+
       //console.log(response);
       return response.json();
   }).then(data => {
-      console.log("data is:")
-      console.log(data);
+      //console.log("data is:")
+      console.log(data["token"]);
+      //console.log( JSON.stringify(data["liked_cg"]) );
       if (data["message"] !== "done"){
-        //console.log(data["message"]);
+
         this.setState({ response: data["message"] });
         //console.log(this.state.response);
+      }else{
+          this.props.navigation.navigate('LikedCG', {liked_cg: data["liked_cg"], token: data["token"],});
       }
-      console.log("Data is ok", data);
+      //console.log("Data is ok", data);
   }).catch(function(ex) {
       console.log("parsing failed", ex);
   });
@@ -114,14 +117,6 @@ export default class Main extends Component {
             autoCapitalize={'none'}
             autoCorrect={false}
           />
-      </View>
-
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.btnEye}
-          onPress={this.showPass}>
-
-        </TouchableOpacity>
         <Button
           style={styles.btnEye}
           onPress={this.onPressFunc}
@@ -129,6 +124,14 @@ export default class Main extends Component {
           color="#64857F"
           accessibilityLabel="Learn more about this purple button"
         />
+      </View>
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.btnEye}
+          onPress={this.showPass}>
+        </TouchableOpacity>
+
       </KeyboardAvoidingView>
     );
   }
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     paddingLeft: 45,
     borderRadius: 20,
     color: '#04090a',
-    marginTop: 20,
+    marginBottom: 20,
   },
   inputWrapper: {
     flex: 1,
