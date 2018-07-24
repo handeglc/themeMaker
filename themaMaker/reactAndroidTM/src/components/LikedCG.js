@@ -70,6 +70,7 @@ export default class LikedCG extends Component {
                 </View>
             )
         }
+        const data = new FormData();
         return (
 
 
@@ -81,6 +82,10 @@ export default class LikedCG extends Component {
                       onPress={this.recommend}
                       title="Recommend"
                       color="#64857F"
+                    />
+                    <Button
+                      onPress={() => this.props.navigation.navigate('Cam',{token: this.state.token})}
+                      title="Open Camera"
                     />
                  </ScrollView>
             </View>

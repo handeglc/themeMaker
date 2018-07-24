@@ -2,23 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26850718-18ae-4275-8886-1d5213503f71" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runtime.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/themaMaker/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/out_all.txt" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/out_all.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/polls/management/commands/format_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/management/commands/format_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/polls/management/commands/recom.py" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/management/commands/recom.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/themaMaker/polls/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/polls/static/polls/css/upload-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/static/polls/css/upload-style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/polls/static/polls/js/buttons.js" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/static/polls/js/buttons.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/polls/static/polls/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/static/polls/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/polls/suggestions.py" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/suggestions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/polls/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/polls/templates/more.html" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/templates/more.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/themaMaker/polls/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/polls/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/src/main/java/com/reactandroidtm/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/src/main/java/com/reactandroidtm/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/ios/reactAndroidTM.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/ios/reactAndroidTM.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/LikedCG.js" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/LikedCG.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/reactAndroidTM/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/reactAndroidTM/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/themaMaker/themaMaker/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/themaMaker/themaMaker/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/layout.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/some_65UmEP5.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/some_CQLcqlE.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/some_D5arM1t.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/some_L9MG3MP.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/some_TjzXWyM.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/some_hgHMuuc.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/some_pB5I1w2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/some_ul3TGdg.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/style_N3y15MR.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/style_copy.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/style_copy_8F8u8oU.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/themaMaker/uploads/style_copy_V9Pc86n.css" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,111 +48,56 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/themaMaker/polls/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="333" column="21" selection-start-line="333" selection-start-column="21" selection-end-line="333" selection-end-column="21" />
+            <state relative-caret-position="244">
+              <caret line="95" column="67" selection-start-line="95" selection-start-column="67" selection-end-line="95" selection-end-column="67" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#1040#2155#0" />
-                <element signature="e#2182#4730#0" />
-                <element signature="e#4757#6151#0" />
-                <element signature="e#6181#6253#0" />
-                <element signature="e#6286#6596#0" />
-                <element signature="e#6626#6897#0" />
-                <element signature="e#8648#9211#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="format_dataset.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/themaMaker/polls/management/commands/format_dataset.py">
+      <file leaf-file-name="LikedCG.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/LikedCG.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="178" column="27" selection-start-line="178" selection-start-column="27" selection-end-line="178" selection-end-column="27" />
+            <state relative-caret-position="315">
+              <caret line="21" column="3" selection-start-line="13" selection-start-column="2" selection-end-line="21" selection-end-column="3" />
               <folding>
-                <element signature="e#21#86#0" expanded="true" />
-                <element signature="e#502#1306#0" />
-                <element signature="e#1351#2459#0" />
-                <element signature="e#2494#3102#0" />
-                <element signature="e#3132#3298#0" />
-                <element signature="e#3457#4089#0" />
-                <element signature="e#4120#4972#0" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/js/main.js">
+      <file leaf-file-name="Cam.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Cam.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="41" column="8" lean-forward="true" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="18" />
+            <state relative-caret-position="434">
+              <caret line="66" column="25" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#14#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="buttons.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/js/buttons.js">
+      <file leaf-file-name="Main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-439">
-              <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+            <state relative-caret-position="498">
+              <caret line="65" column="29" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="more.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/themaMaker/polls/templates/more.html">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="28" column="38" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/themaMaker/polls/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="60" column="132" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="60" selection-end-column="132" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/themaMaker/themaMaker/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="suggestions.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/themaMaker/polls/suggestions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="68" column="37" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/themaMaker/polls/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="135">
+              <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -153,7 +114,16 @@
       <find>recomm</find>
       <find>block</find>
       <find>clustering</find>
+      <find>dimentio</find>
+      <find>console.log</find>
+      <find>authenticated</find>
+      <find>camer</find>
+      <find>25.4.0</find>
+      <find>build</find>
     </findStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/themaMaker</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -164,18 +134,29 @@
         <option value="$PROJECT_DIR$/themaMaker/polls/urls.py" />
         <option value="$PROJECT_DIR$/themaMaker/polls/color.py" />
         <option value="$PROJECT_DIR$/themaMaker/polls/static/polls/css/style.css" />
-        <option value="$PROJECT_DIR$/themaMaker/polls/models.py" />
         <option value="$PROJECT_DIR$/themaMaker/polls/management/commands/recom.py" />
         <option value="$PROJECT_DIR$/themaMaker/polls/static/polls/css/upload-style.css" />
-        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Main.js" />
         <option value="$PROJECT_DIR$/themaMaker/polls/suggestions.py" />
-        <option value="$PROJECT_DIR$/themaMaker/themaMaker/settings.py" />
         <option value="$PROJECT_DIR$/themaMaker/polls/static/polls/js/buttons.js" />
         <option value="$PROJECT_DIR$/themaMaker/polls/templates/more.html" />
         <option value="$PROJECT_DIR$/themaMaker/polls/management/commands/format_dataset.py" />
-        <option value="$PROJECT_DIR$/themaMaker/polls/views.py" />
         <option value="$PROJECT_DIR$/themaMaker/polls/static/polls/js/main.js" />
         <option value="$PROJECT_DIR$/themaMaker/polls/templates/index.html" />
+        <option value="$PROJECT_DIR$/themaMaker/polls/models.py" />
+        <option value="$PROJECT_DIR$/themaMaker/polls/kmeans.py" />
+        <option value="$PROJECT_DIR$/themaMaker/themaMaker/settings.py" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Main.js" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/gradle/wrapper/gradle-wrapper.properties" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/node_modules/react-native-camera/android/build.gradle" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/build.gradle" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/build.gradle" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/settings.gradle" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/src/main/java/com/reactandroidtm/MainApplication.java" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/App.js" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/Cam.js" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/LikedCG.js" />
+        <option value="$PROJECT_DIR$/themaMaker/polls/views.py" />
+        <option value="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Cam.js" />
       </list>
     </option>
   </component>
@@ -193,10 +174,10 @@
       <path value="$PROJECT_DIR$/themaMaker/reactAndroidTM/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="y" value="22" />
-    <option name="width" value="1420" />
-    <option name="height" value="835" />
+    <option name="width" value="1440" />
+    <option name="height" value="836" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -228,43 +209,6 @@
               <item name="Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Project" type="462c0819:PsiDirectoryNode" />
               <item name="themaMaker" type="462c0819:PsiDirectoryNode" />
-              <item name="polls" type="462c0819:PsiDirectoryNode" />
-              <item name="management" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="themaMaker" type="462c0819:PsiDirectoryNode" />
-              <item name="polls" type="462c0819:PsiDirectoryNode" />
-              <item name="management" type="462c0819:PsiDirectoryNode" />
-              <item name="commands" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="themaMaker" type="462c0819:PsiDirectoryNode" />
-              <item name="polls" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="themaMaker" type="462c0819:PsiDirectoryNode" />
-              <item name="polls" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="polls" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="themaMaker" type="462c0819:PsiDirectoryNode" />
-              <item name="polls" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="themaMaker" type="462c0819:PsiDirectoryNode" />
               <item name="reactAndroidTM" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -282,12 +226,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Project" type="462c0819:PsiDirectoryNode" />
-              <item name="themaMaker" type="462c0819:PsiDirectoryNode" />
-              <item name="themaMaker" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -299,7 +237,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -327,7 +270,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1420" height="835" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -337,9 +280,10 @@
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24652778" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -350,7 +294,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,23 +304,87 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="28" column="65" lean-forward="true" selection-start-line="28" selection-start-column="65" selection-end-line="28" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/management/commands/format_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2565">
+          <caret line="178" column="27" selection-start-line="178" selection-start-column="27" selection-end-line="178" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/js/buttons.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/themaMaker/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/suggestions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/themaMaker/polls/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6015">
           <caret line="401" selection-start-line="401" selection-end-line="401" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#1040#2155#0" />
-            <element signature="e#2182#4730#0" />
-            <element signature="e#4757#6151#0" />
-            <element signature="e#6181#6253#0" />
-            <element signature="e#6286#6596#0" />
-            <element signature="e#6626#6897#0" />
-            <element signature="e#8648#9211#0" />
           </folding>
         </state>
       </provider>
@@ -416,13 +423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/themaMaker/polls/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
@@ -445,13 +445,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/themaMaker/polls/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/themaMaker/polls/urls.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -463,40 +457,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Main.js">
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/management/commands/format_dataset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="64" column="34" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2565">
+          <caret line="178" column="27" selection-start-line="178" selection-start-column="27" selection-end-line="178" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/themaMaker/themaMaker/settings.py">
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+        <state relative-caret-position="615">
+          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/themaMaker/polls/suggestions.py">
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="68" column="37" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/js/buttons.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-439">
-          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="118">
+          <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -507,53 +485,195 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/themaMaker/polls/management/commands/format_dataset.py">
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/js/buttons.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="178" column="27" selection-start-line="178" selection-start-column="27" selection-end-line="178" selection-end-column="27" />
+        <state relative-caret-position="90">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PycharmProjects/untitled/venv/lib/python3.7/site-packages/django/db/models/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="514" column="8" selection-start-line="514" selection-start-column="8" selection-end-line="514" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/suggestions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="13" column="42" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
           <folding>
-            <element signature="e#21#86#0" expanded="true" />
-            <element signature="e#502#1306#0" />
-            <element signature="e#1351#2459#0" />
-            <element signature="e#2494#3102#0" />
-            <element signature="e#3132#3298#0" />
-            <element signature="e#3457#4089#0" />
-            <element signature="e#4120#4972#0" />
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/kmeans.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-96">
+          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/yarn.lock">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="43" selection-start-column="43" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/polls/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/themaMaker/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="59" selection-start-line="28" selection-start-column="59" selection-end-line="28" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda/envs/myenv/lib/python3.6/site-packages/rest_framework/authentication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="144" column="6" selection-start-line="144" selection-start-column="6" selection-end-line="144" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/reactAndroidTM.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/src/main/java/com/reactandroidtm/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/node_modules/react-native-camera/docs/RNCamera.md">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/node_modules/react-native/react.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1434" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/node_modules/react-native-camera/android/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/node_modules/react-native/ReactAndroid/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2557">
+          <caret line="16" column="22" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/src/main/java/com/reactandroidtm/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="142" column="49" selection-start-line="142" selection-start-column="49" selection-end-line="142" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/gradle/wrapper/gradle-wrapper.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/android/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="24" column="63" selection-start-line="24" selection-start-column="63" selection-end-line="24" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/LikedCG.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="3" selection-start-line="13" selection-start-column="2" selection-end-line="21" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/themaMaker/polls/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="333" column="21" selection-start-line="333" selection-start-column="21" selection-end-line="333" selection-end-column="21" />
+        <state relative-caret-position="244">
+          <caret line="95" column="67" selection-start-line="95" selection-start-column="67" selection-end-line="95" selection-end-column="67" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#1040#2155#0" />
-            <element signature="e#2182#4730#0" />
-            <element signature="e#4757#6151#0" />
-            <element signature="e#6181#6253#0" />
-            <element signature="e#6286#6596#0" />
-            <element signature="e#6626#6897#0" />
-            <element signature="e#8648#9211#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/themaMaker/polls/static/polls/js/main.js">
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="41" column="8" lean-forward="true" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="18" />
+        <state relative-caret-position="498">
+          <caret line="65" column="29" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/themaMaker/polls/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/themaMaker/reactAndroidTM/src/components/Cam.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="60" column="132" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="60" selection-end-column="132" />
+        <state relative-caret-position="434">
+          <caret line="66" column="25" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+          <folding>
+            <element signature="e#14#55#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

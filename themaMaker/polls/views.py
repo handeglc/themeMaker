@@ -5,6 +5,8 @@ import webcolors
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from rest_framework.authentication import TokenAuthentication
+
 from polls.models import *
 from polls import color
 from .suggestions import update_clusters
@@ -15,138 +17,170 @@ from sklearn.cluster import KMeans
 
 from polls.serializers import ColorSerializer
 from rest_framework import generics
+from rest_framework.authtoken.models import Token
 
-#from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
 #from rest_framework.permissions import IsAuthenticated
 #from rest_framework.response import Response
 from rest_framework.views import APIView
 #from rest_framework import authentication, permissions
 
+
 class ColorListCreate(generics.ListCreateAPIView):
-	queryset = Color.objects.all()
-	serializer_class = ColorSerializer
+    queryset = Color.objects.all()
+    serializer_class = ColorSerializer
+
 
 class apiView(APIView):
-	#data = request.POST["data"]
+    # data = request.POST["data"]
 
-	#authentication_classes = (authentication.TokenAuthentication,)
-	#permission_classes = (permissions.IsAdminUser,)
+    authentication_classes = (TokenAuthentication,)
+    #permission_classes = (permissions.IsAdminUser,)
 
-	def get(self, request, format=None):
-		"""
-		Return a list of all users.
-		"""
-		print(request.user)
-		usernames = [user.username for user in User.objects.all()]
-		return JsonResponse({"users": usernames})
+    def get(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        print(request.user)
+        usernames = [user.username for user in User.objects.all()]
+        return JsonResponse({"users": usernames})
 
-	def post(self, request, *args, **kwargs):
-		operation = request.data["operation"]
-		if(operation == "login"):
-			uname = request.data["username"]
-			passw = request.data["password"]
-			print("posttayız")
-			#print(request.data)
-			print((uname,passw))
+    def post(self, request, *args, **kwargs):
+        operation = request.data["operation"]
+        response = {}
+        if operation == "login":
+            uname = request.data["username"]
+            passw = request.data["password"]
+            print("posttayız")
+            # print(request.data)
+            print((uname,passw))
 
-			s = LoginView()
-			response = LoginView.login(s, uname,passw, request)
-			if response["message"] == "done":
-				user_obj = User.objects.get(username=uname)
-				user = User_Profile.objects.get(user=user_obj)
-				cgs = user.liked_color_groups.all()
-				for cg in cgs:
-					cols = cg.colors.all()
-					cols_id = cg.id
-					col_list = []
-					for c in cols:
-						col_list.append(c)
-					cg_list.append({"id": cols_id, "list": col_list})
+            s = LoginView()
+            response = LoginView.login(s, uname,passw, request)
 
+            cg_list = []
+            if response["message"] == "done":
+                try:
+                    token = Token.objects.get(user=User.objects.get(username=uname))
+                except:
+                    token = Token.objects.create(user=User.objects.get(username=uname))
+                response["token"] = token.key
+                user_obj = User.objects.get(username=uname)
+                user = User_Profile.objects.get(user=user_obj)
+                cgs = user.liked_color_groups.all()
+                for cg in cgs:
+                    cols = cg.colors.all()
+                    cols_id = cg.id
+                    col_list = []
+                    for c in cols:
+                        col_list.append(c.color_id_hex)
+                    cg_list.append({"id": cols_id, "list": col_list})
 
-				response["liked_cg"] = cg_list
+                response["liked_cg"] = cg_list
+        elif operation == "recommend":
+            print("recommendation operation")
+            print(request.user)
+            r = RecommendationView()
+            return r.user_recommendation_list(request)
 
-			return JsonResponse(response)
+        elif operation == "dominantColors":
+            print("dominantColors operation")
+            print(request.user)
+            print(request.data)
+            print(request.data["photo"])
+            instance = File(name_field=request.data["photo"].name, file_field=request.data["photo"])
+            instance.save()
+            u = UploadView()
+            print(instance.file_field.name)
+            cols = u.dominantColors(instance.file_field.name,5)
+            colors = [webcolors.rgb_to_hex(tuple(t)) for t in cols]
+            response["dominantColors"] = colors
+
+        return JsonResponse(response)
 
 class UploadView(View):
-	def get(self, request):
-		print("deneme sadece")
-		return render(request,'more.html', {"files": "file_list" })
+    def get(self, request):
+        print("deneme sadece")
+        return render(request,'more.html', {"files": "file_list" })
 
-	def dominantColors(self,img,cluster=3):
+    def dominantColors(self,img,cluster=3):
 
-		#open image
-		img = cv2.imread('/Users/hande/Desktop/Project/themaMaker/uploads/'+ img)
+        if img[:8] == "uploads/":
+            img = cv2.imread('/Users/hande/Desktop/Project/themaMaker/' + img)
+        else:
+            #open image
+            img = cv2.imread('/Users/hande/Desktop/Project/themaMaker/uploads/'+ img)
 
-		if img is not None:
-			print("None img")
+        if img is None:
+            print("None img")
+            return
 
-		#convert to RGB from BGR
-		img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        #convert to RGB from BGR
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-		#reshaping to a list of pixels
-		img = img.reshape((img.shape[0] * img.shape[1], 3))
+        #reshaping to a list of pixels
+        img = img.reshape((img.shape[0] * img.shape[1], 3))
 
-		#save image after operations
-		#self.IMAGE = img
+        #save image after operations
+        #self.IMAGE = img
 
-		#using k-means to cluster pixels
-		kmeans = KMeans(n_clusters = cluster)
-		kmeans.fit(img)
+        #using k-means to cluster pixels
+        kmeans = KMeans(n_clusters = cluster)
+        kmeans.fit(img)
 
-		#getting the colors as per dominance order
-		colors = kmeans.cluster_centers_
+        #getting the colors as per dominance order
+        colors = kmeans.cluster_centers_
 
-		#save labels
-		labels = kmeans.labels_
-		
-		return colors.astype(int)
+        #save labels
+        labels = kmeans.labels_
 
-	def post(self, request, *args, **kwargs):
+        return colors.astype(int)
 
-		files=request.FILES.getlist("filee")
-		file_list=[]
-		for f in files:
-			css_file_name = re.findall('.*\.css$', f.name)
-			jpg_file_name = re.findall('.*\.jpg$|.*\.JPG$', f.name)
+    def post(self, request, *args, **kwargs):
 
-			if len(css_file_name) == 0 and len(jpg_file_name) == 0:
-				return
-			else:
-				instance = File(name_field=f.name ,file_field=f)
-				instance.save()
+        files=request.FILES.getlist("filee")
+        file_list=[]
+        for f in files:
+            css_file_name = re.findall('.*\.css$', f.name)
+            jpg_file_name = re.findall('.*\.jpg$|.*\.JPG$', f.name)
 
-				if len(css_file_name)>0:
-					with open('/Users/hande/Desktop/Project/themaMaker/uploads/'+css_file_name[0], newline='') as myFile:
-						colors = re.findall(r'color:\s(#[a-zA-Z0-9]*|[a-z]*)',myFile.read(), re.DOTALL)
+            if len(css_file_name) == 0 and len(jpg_file_name) == 0:
+                return
+            else:
+                instance = File(name_field=f.name ,file_field=f)
+                instance.save()
 
-					colors = [elem for elem in colors if (elem != "transparent")]
+                if len(css_file_name)>0:
+                    with open('/Users/hande/Desktop/Project/themaMaker/uploads/'+css_file_name[0], newline='') as myFile:
+                        colors = re.findall(r'color:\s(#[a-zA-Z0-9]*|[a-z]*)',myFile.read(), re.DOTALL)
 
-					for x in range(0,len(colors)):
-						if ( colors[x][0] != '#'):
-							temp = webcolors.html5_parse_legacy_color(colors[x])
-							temp_r = str(hex(temp.red))[2:] if(len(str(hex(temp.red)))==4) else ('0'+ str(hex(temp.red))[2])
-							temp_g = str(hex(temp.green))[2:] if(len(str(hex(temp.green)))==4) else ('0'+ str(hex(temp.green))[2])
-							temp_b = str(hex(temp.blue))[2:] if(len(str(hex(temp.blue)))==4) else ('0'+ str(hex(temp.blue))[2])
-							colors[x] = '#' + temp_r + temp_g + temp_b
+                    colors = [elem for elem in colors if (elem != "transparent")]
 
-						elif ( len(colors[x]) < 7 ):
-							temp_r = colors[x][1]
-							temp_g = colors[x][2]
-							temp_b = colors[x][3]
-							colors[x] = '#'+ temp_r + temp_r + temp_g + temp_g + temp_b + temp_b
-					
-				else:
-					cols = self.dominantColors(jpg_file_name[0], 5 )
-					colors = [webcolors.rgb_to_hex(tuple(t)) for t in cols]
-					#print(colors)
+                    for x in range(0,len(colors)):
+                        if ( colors[x][0] != '#'):
+                            temp = webcolors.html5_parse_legacy_color(colors[x])
+                            temp_r = str(hex(temp.red))[2:] if(len(str(hex(temp.red)))==4) else ('0'+ str(hex(temp.red))[2])
+                            temp_g = str(hex(temp.green))[2:] if(len(str(hex(temp.green)))==4) else ('0'+ str(hex(temp.green))[2])
+                            temp_b = str(hex(temp.blue))[2:] if(len(str(hex(temp.blue)))==4) else ('0'+ str(hex(temp.blue))[2])
+                            colors[x] = '#' + temp_r + temp_g + temp_b
 
-				color_no_list = list(range(len(colors)))
-				print(instance.file_field.name)
-				file_list.append({"name": f.name,"uploaded_fname": instance.file_field.path,"color_list":colors, "color_no_list": color_no_list })
+                        elif ( len(colors[x]) < 7 ):
+                            temp_r = colors[x][1]
+                            temp_g = colors[x][2]
+                            temp_b = colors[x][3]
+                            colors[x] = '#'+ temp_r + temp_r + temp_g + temp_g + temp_b + temp_b
+
+                else:
+                    cols = self.dominantColors(jpg_file_name[0], 5 )
+                    colors = [webcolors.rgb_to_hex(tuple(t)) for t in cols]
+                    #print(colors)
+
+                color_no_list = list(range(len(colors)))
+                print(instance.file_field.name)
+                file_list.append({"name": f.name,"uploaded_fname": instance.file_field.path,"color_list":colors, "color_no_list": color_no_list })
 
 
-		return render(request,'more.html', {"files": file_list })
+        return render(request,'more.html', {"files": file_list })
 
 class LoginView(View):
 

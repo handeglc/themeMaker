@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View,
-  Image,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import Main from './src/components/Main';
 import LikedCG from "./src/components/LikedCG";
+import Cam from "./src/components/Cam";
 
 
 const AppNavigator = StackNavigator({
     Main: { screen: Main },
-    LikedCG: { screen: LikedCG}
+    LikedCG: { screen: LikedCG},
+    Cam: { screen: Cam }
 });
 
 export default class loginAnimation extends Component {

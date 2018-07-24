@@ -65,11 +65,7 @@ class Color_Cluster(models.Model):
 
 	def get_colors(self):
 		return "\n".join([u.color_id_hex for u in self.colors.all()])
-	'''color_id = models.IntegerField()
-	cg_id = models.IntegerField()
-	c_count = models.IntegerField()
-	c_light = models.IntegerField()
-	c_satur = models.IntegerField()'''
+
 
 class File(models.Model):
 	name_field = models.CharField(max_length=100)
