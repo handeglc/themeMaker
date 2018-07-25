@@ -174,12 +174,13 @@ class Command(BaseCommand):
     def delete_same_color_groups(self):
         cgs=Color_Groups.objects.all()
         for cg1 in cgs:
-            cg1L=set(cg1.colors.all())
-            print(cg1L)
+            cg1L = set(cg1.colors.all())
+            #print(cg1L)
             for cg2 in cgs:
-                cg2L=set(cg2.colors.all())
-                if cg1L == cg2L and cg1.id != cg2.id:
+                cg2L = set(cg2.colors.all())
+                if cg1L == cg2L and cg1.id > cg2.id:
                     print(cg2.id)
+                    #cg2.delete()
 
 
     def add_argument(self, parser):
@@ -191,7 +192,7 @@ class Command(BaseCommand):
             # your logic here
         print("I am here")
         #self.assign_cg_to_users()
-        self.delete_same_color_groups()
+        #self.delete_same_color_groups()
         '''self.read_color_sets("colorset4_clean.txt")
         self.read_color_sets("colorset_5.txt")
         self.read_color_sets("colorset_5_small.txt")

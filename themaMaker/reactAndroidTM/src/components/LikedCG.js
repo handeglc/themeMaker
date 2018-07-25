@@ -16,8 +16,10 @@ export default class LikedCG extends Component {
     this.state = {
         response: 'no message',
         token: this.props.navigation.getParam('token'),
+        logged: this.props.navigation.getParam('logged'),
     };
     this.recommend = this.recommend.bind(this);
+    LikedCG.delete_cg = LikedCG.delete_cg.bind(this);
 
   }
 
@@ -46,6 +48,33 @@ export default class LikedCG extends Component {
       });
   }
 
+  static delete_cg(cg_id){
+      console.log("delete button "+ cg_id);
+      fetch("http://10.2.2.107:8000/api/login/", {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Token " + this.state.token,
+      },
+      body: JSON.stringify({
+        operation: 'delete_cg',
+        cg_id: cg_id,
+      }),
+
+      }).then(function(response) {
+          return response.json();
+      }).then(data => {
+          console.log(data);
+          if(data["deleted"] === "true"){
+              this.props.navigation.navigate('LikedCG', {liked_cg: data["liked_cg"], token: this.state.token});
+          }
+
+      }).catch(function(ex) {
+          console.log("parsing failed", ex);
+      });
+  }
+
 
     render() {
         const { navigation } = this.props;
@@ -59,7 +88,7 @@ export default class LikedCG extends Component {
             const cg_colors = [];
             for(let j = 0; j < liked_cg[i]["list"].length; j++){
                 cg_colors.push(
-                    <View  key={"color"+j} style = {{ backgroundColor: liked_cg[i]["list"][j], width:100, heigth:100,}}>
+                    <View  key={"color"+j} style = {{ backgroundColor: liked_cg[i]["list"][j], width:100, heigth:100, flexDirection: 'row'}}>
                         <Text> {liked_cg[i]["list"][j]} </Text>
                     </View>
                 )
@@ -67,11 +96,19 @@ export default class LikedCG extends Component {
             cgs.push(
                 <View key = {i} style = {{ flexDirection: 'column', marginBottom:30, alignItems: 'center',}}>
                     {cg_colors}
+                    <View style={{marginTop:5, fontSize:5,}}>
+                        <Button
+                              onPress={() => LikedCG.delete_cg(liked_cg[i]["id"])}
+                              title="Delete"
+                              color="#5FF07F"
 
+                              //cg_id = cg[j]
+                            />
+                    </View>
                 </View>
             )
         }
-        const data = new FormData();
+
         return (
 
 

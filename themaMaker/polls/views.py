@@ -48,6 +48,7 @@ class apiView(APIView):
     def post(self, request, *args, **kwargs):
         operation = request.data["operation"]
         response = {}
+
         if operation == "login":
             uname = request.data["username"]
             passw = request.data["password"]
@@ -77,6 +78,7 @@ class apiView(APIView):
                     cg_list.append({"id": cols_id, "list": col_list})
 
                 response["liked_cg"] = cg_list
+
         elif operation == "recommend":
             print("recommendation operation")
             print(request.user)
@@ -95,6 +97,50 @@ class apiView(APIView):
             cols = u.dominantColors(instance.file_field.name,5)
             colors = [webcolors.rgb_to_hex(tuple(t)) for t in cols]
             response["dominantColors"] = colors
+
+        elif operation == "delete_cg":
+            print("delete_cg operation")
+            print(request.user)
+            print(request.data)
+
+            uname = request.user.username
+            user_obj = User.objects.get(username=uname)
+            user = User_Profile.objects.get(user=user_obj)
+            cg_id = int(request.data["cg_id"])
+            color_set = Color_Groups.objects.filter(id=cg_id)
+            user.liked_color_groups.remove(color_set[0])
+            cg_list = []
+            cgs = user.liked_color_groups.all()
+            for cg in cgs:
+                cols = cg.colors.all()
+                cols_id = cg.id
+                col_list = []
+                for c in cols:
+                    col_list.append(c.color_id_hex)
+                cg_list.append({"id": cols_id, "list": col_list})
+
+            response["liked_cg"] = cg_list
+            response["deleted"] = "true"
+            #response["token"] = Token.objects.get(user=User.objects.get(username=uname))
+
+        elif operation == "add_cg":
+            print("add_cg operation")
+            print(request.data)
+            s = SaveView()
+            s.add_cg_to_user(request.data["colors"], request.user.username)
+
+            cg_list = []
+            user = User_Profile.objects.get(user = request.user)
+            cgs = user.liked_color_groups.all()
+            for cg in cgs:
+                cols = cg.colors.all()
+                cols_id = cg.id
+                col_list = []
+                for c in cols:
+                    col_list.append(c.color_id_hex)
+                cg_list.append({"id": cols_id, "list": col_list})
+
+            response["liked_cg"] = cg_list
 
         return JsonResponse(response)
 
@@ -249,7 +295,6 @@ def delete_cg_view(request):
     cg_id = int(request.POST["id"])
     color_set = Color_Groups.objects.filter(id=cg_id)
     user.liked_color_groups.remove(color_set[0])
-
     return JsonResponse({"saved": "deleted"})
 
 def show_cg_view(request):
@@ -280,30 +325,43 @@ class SaveView(View):
                 c = database_color[0]
         return colors_hex
 
-    def post(self, request, *args, **kwargs):
-
-        colors_hex = self.get_color_hex_list(request)
+    def add_cg_to_user(self, colors_hex, username):
         color_set = Color_Groups(how_many_colors=len(colors_hex), group_tendency=color.cg_group_tendency(colors_hex))
         color_set.save()
         for color_hex in colors_hex:
             database_color = Color.objects.filter(color_id_hex=color_hex)
             if database_color.count() == 0:
-                color_dic = {"color_id_hex": color_hex,"color_tendency": color.color_tendency(color_hex), "is_light": color.color_is_light(color_hex), "is_saturated":color.color_is_saturated(color_hex)}
+                color_dic = {"color_id_hex": color_hex, "color_tendency": color.color_tendency(color_hex),
+                             "is_light": color.color_is_light(color_hex),
+                             "is_saturated": color.color_is_saturated(color_hex)}
                 c = Color(**color_dic)
                 c.save()
             else:
                 c = database_color[0]
             color_set.colors.add(c)
 
+        all_cgs = Color_Groups.objects.all()
+        for cg in all_cgs:
+            if set(color_set.colors.all()) == set(cg.colors.all()) and cg.id != color_set.id:
+                color_set.delete()
+                color_set = cg
+
+        user_obj = User.objects.get(username=username)
+        user = User_Profile.objects.get(user=user_obj)
+        users_sets = user.liked_color_groups.all()
+        print(color_set)
+        if color_set not in users_sets:
+            user.liked_color_groups.add(color_set)
+
+    def post(self, request, *args, **kwargs):
+
+        colors_hex = self.get_color_hex_list(request)
 
         if request.user.is_authenticated:
             user_nname = request.user.username
-            user_obj = User.objects.get(username = user_nname)
-            user = User_Profile.objects.get(user = user_obj)
-            user.liked_color_groups.add(color_set)
+            self.add_cg_to_user(colors_hex, user_nname)
 
         #update_clusters()
-
         return JsonResponse({"done": "data","refresh": "yes"})
 
 
@@ -436,9 +494,10 @@ class RecommendationView(View):
         [color_groups.append(up.liked_color_groups.all()) for up in user_profiles]
 
         quer = color_groups[randint(0,len(color_groups)-1)]
-        color_objs = quer[randint(0,len(quer)-1)].colors.all()
+        chosen_cg = color_objs = quer[randint(0,len(quer)-1)]
+        color_objs = chosen_cg.colors.all()
         color_list = [ c.color_id_hex for c in color_objs ]
 
         return JsonResponse(
-            {'username': request.user.username,'color_list': color_list}
+            {'username': request.user.username,'color_list': color_list, 'cg_id': chosen_cg.id}
         )
