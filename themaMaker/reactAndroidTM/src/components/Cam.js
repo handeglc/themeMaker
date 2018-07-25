@@ -48,7 +48,6 @@ export default class Cam extends Component {
         const options = { quality: 0.5, base64: true };
         const data = await this.camera.takePictureAsync(options)
         console.log(data.uri);
-        //this.props.navigation.navigate('LikedCG');
         const data_p = new FormData();
         data_p.append('name', 'testName'); // you can append anyone.
         data_p.append('operation', 'dominantColors')
@@ -59,12 +58,16 @@ export default class Cam extends Component {
         });
         fetch("http://10.2.2.107:8000/api/login/", {
           method: 'post',
-          headers: {
-            Authorization: "Token " + this.state.token,
-          },
+          //headers: {
+            //Authorization: "Token " + this.state.token,
+          //},
           body: data_p
         }).then(res => {
           console.log(res);
+          console.log(res["_bodyInit"]);
+          var datum = JSON.parse(res["_bodyInit"]);
+          console.log(datum["dominantColors"]);
+          this.props.navigation.navigate('PresentedColors', {colors: datum["dominantColors"], token: this.state.token, uri: data.uri});
         });
     }
   };

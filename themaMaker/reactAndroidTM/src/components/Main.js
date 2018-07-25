@@ -88,7 +88,7 @@ export default class Main extends Component {
 
           <TextInput
             style={styles.input}
-            placeholder={this.props.placeholder}
+            placeholder="Username"
             secureTextEntry={this.props.secureTextEntry}
             autoCorrect={this.props.autoCorrect}
             autoCapitalize={this.props.autoCapitalize}
@@ -96,15 +96,10 @@ export default class Main extends Component {
             placeholderTextColor="white"
             underlineColorAndroid="transparent"
             onChangeText={(username) => this.setState({username})}
-            placeholder="Username"
-            autoCapitalize={'none'}
-            returnKeyType={'done'}
-            autoCorrect={false}
           />
           <TextInput
             style={styles.input}
-            placeholder={this.props.placeholder}
-            secureTextEntry={this.props.secureTextEntry}
+            placeholder="Password"
             autoCorrect={this.props.autoCorrect}
             autoCapitalize={this.props.autoCapitalize}
             returnKeyType={this.props.returnKeyType}
@@ -112,10 +107,6 @@ export default class Main extends Component {
             underlineColorAndroid="transparent"
             onChangeText={(pass) => this.setState({pass})}
             secureTextEntry={this.state.showPass}
-            placeholder="Password"
-            returnKeyType={'done'}
-            autoCapitalize={'none'}
-            autoCorrect={false}
           />
         <Button
           style={styles.btnEye}
@@ -123,6 +114,12 @@ export default class Main extends Component {
           title="Login"
           color="#64857F"
           accessibilityLabel="Learn more about this purple button"
+        />
+        <Button
+          style={styles.btnEye}
+          onPress={() => this.props.navigation.navigate('Cam',{token: "0"})}
+          title="Open Camera"
+          color="#648500"
         />
       </View>
 

@@ -99,6 +99,7 @@ class apiView(APIView):
         return JsonResponse(response)
 
 class UploadView(View):
+
     def get(self, request):
         print("deneme sadece")
         return render(request,'more.html', {"files": "file_list" })
@@ -179,153 +180,152 @@ class UploadView(View):
                 print(instance.file_field.name)
                 file_list.append({"name": f.name,"uploaded_fname": instance.file_field.path,"color_list":colors, "color_no_list": color_no_list })
 
-
         return render(request,'more.html', {"files": file_list })
+
 
 class LoginView(View):
 
-	def liked_cg(self,request):
-		c={};
-		c["liked_cg"]=[]
-		if request.user.is_authenticated:
-			#c["liked_cg"]
-			cg_list =[]
-			user_nname = request.user.username
-			user_obj = User.objects.get(username = user_nname)
-			user = User_Profile.objects.get(user = user_obj)
-			cgs = user.liked_color_groups.all()
-			for cg in cgs:
-				cols = cg.colors.all()
-				cols_id = cg.id
-				col_list = []
-				for c in cols:
-					col_list.append(c)
-				cg_list.append({"id": cols_id, "list" :col_list})
-			
-			c = {"liked_cg":cg_list}
-		return c
+    def liked_cg(self, request):
+        c = {};
+        c["liked_cg"]=[]
+        if request.user.is_authenticated:
+            #c["liked_cg"]
+            cg_list =[]
+            user_nname = request.user.username
+            user_obj = User.objects.get(username = user_nname)
+            user = User_Profile.objects.get(user = user_obj)
+            cgs = user.liked_color_groups.all()
+            for cg in cgs:
+                cols = cg.colors.all()
+                cols_id = cg.id
+                col_list = []
+                for c in cols:
+                    col_list.append(c)
+                cg_list.append({"id": cols_id, "list" :col_list})
 
-	def get(self, request):
-		c = self.liked_cg(request)
+            c = {"liked_cg":cg_list}
+        return c
 
-		return render(request,'login.html',c)
+    def get(self, request):
+        c = self.liked_cg(request)
 
-	def post(self, request, *args, **kwargs):
+        return render(request,'login.html',c)
 
-		username = request.POST['username']
-		password = request.POST['password']
-		return JsonResponse(self.login(username,password,request))
+    def post(self, request, *args, **kwargs):
 
-	def login(self,username,password,request):
-		c = {}
-		user = User.objects.filter(username= username)
-		if user.count() == 0:
-			c["message"] = "There is not such a user with username: "+ username
-		else:
-			user = authenticate(request, username=username, password=password)
-			
-			if user is not None:
-				login(request, user)
-				#c = self.liked_cg(request)
-				print(c)
-				c["message"] = "done"
-				print(c)
-				#return render(request,'index.html',c)
-			else:
-				c["message"] = "Your username or password is wrong, try again!"
-				#return render(request,'login.html',c)
-		return c
+        username = request.POST['username']
+        password = request.POST['password']
+        return JsonResponse(self.login(username,password,request))
+
+    def login(self, username, password, request):
+        c = {}
+        user = User.objects.filter(username= username)
+        if user.count() == 0:
+            c["message"] = "There is not such a user with username: "+ username
+        else:
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                #c = self.liked_cg(request)
+                print(c)
+                c["message"] = "done"
+                print(c)
+                #return render(request,'index.html',c)
+            else:
+                c["message"] = "Your username or password is wrong, try again!"
+                #return render(request,'login.html',c)
+        return c
 
 
 def logout_view(request):
-	logout(request)
-	return JsonResponse({"successfully_logged_out": "yes"})
-
+    logout(request)
+    return JsonResponse({"successfully_logged_out": "yes"})
 
 def delete_cg_view(request):
-	user_nname = request.user.username
-	user_obj = User.objects.get(username = user_nname)
-	user = User_Profile.objects.get(user = user_obj)
-	cg_id = int(request.POST["id"])
-	color_set = Color_Groups.objects.filter(id=cg_id)
-	user.liked_color_groups.remove(color_set[0])
+    user_nname = request.user.username
+    user_obj = User.objects.get(username = user_nname)
+    user = User_Profile.objects.get(user = user_obj)
+    cg_id = int(request.POST["id"])
+    color_set = Color_Groups.objects.filter(id=cg_id)
+    user.liked_color_groups.remove(color_set[0])
 
-	return JsonResponse({"saved": "deleted"})
+    return JsonResponse({"saved": "deleted"})
 
 def show_cg_view(request):
-	colors_list = []
-	if(request.method == 'POST'):
-		cg_id = request.POST["id"]
-		cg = Color_Groups.objects.filter(id=cg_id)
-		if(cg.count() != 0):
-			colors = cg[0].colors.all()
-			colors_list = [c.color_id_hex for c in colors]
-	return JsonResponse({"colors": colors_list})
+    colors_list = []
+    if(request.method == 'POST'):
+        cg_id = request.POST["id"]
+        cg = Color_Groups.objects.filter(id=cg_id)
+        if(cg.count() != 0):
+            colors = cg[0].colors.all()
+            colors_list = [c.color_id_hex for c in colors]
+    return JsonResponse({"colors": colors_list})
 
 
 class SaveView(View):
 
-	def get_color_hex_list(self,request):
-		data = request.POST.get("datas",None);
+    def get_color_hex_list(self,request):
+        data = request.POST.get("datas",None);
 
-		colors = re.findall(r'favcolor=%23([a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9])',data, re.DOTALL) #color hexes but without "#"
-		colors_hex = [ "#"+elem for elem in colors] #add '#' to the beginning of the color codes
-		for color_hex in colors_hex:
-			database_color = Color.objects.filter(color_id_hex=color_hex)
-			if database_color.count() == 0:
-				color_dic = {"color_id_hex": color_hex,"color_tendency": color.color_tendency(color_hex), "is_light": color.color_is_light(color_hex), "is_saturated":color.color_is_saturated(color_hex)}
-				c = Color(**color_dic)
-				c.save()
-			else:
-				c = database_color[0]
-		return colors_hex
+        colors = re.findall(r'favcolor=%23([a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9])',data, re.DOTALL) #color hexes but without "#"
+        colors_hex = [ "#"+elem for elem in colors] #add '#' to the beginning of the color codes
+        for color_hex in colors_hex:
+            database_color = Color.objects.filter(color_id_hex=color_hex)
+            if database_color.count() == 0:
+                color_dic = {"color_id_hex": color_hex,"color_tendency": color.color_tendency(color_hex), "is_light": color.color_is_light(color_hex), "is_saturated":color.color_is_saturated(color_hex)}
+                c = Color(**color_dic)
+                c.save()
+            else:
+                c = database_color[0]
+        return colors_hex
 
-	def post(self, request, *args, **kwargs):
-		
-		colors_hex = self.get_color_hex_list(request)
-		color_set = Color_Groups(how_many_colors=len(colors_hex), group_tendency=color.cg_group_tendency(colors_hex))
-		color_set.save()
-		for color_hex in colors_hex:
-			database_color = Color.objects.filter(color_id_hex=color_hex)
-			if database_color.count() == 0:
-				color_dic = {"color_id_hex": color_hex,"color_tendency": color.color_tendency(color_hex), "is_light": color.color_is_light(color_hex), "is_saturated":color.color_is_saturated(color_hex)}
-				c = Color(**color_dic)
-				c.save()
-			else:
-				c = database_color[0]
-			color_set.colors.add(c)
+    def post(self, request, *args, **kwargs):
+
+        colors_hex = self.get_color_hex_list(request)
+        color_set = Color_Groups(how_many_colors=len(colors_hex), group_tendency=color.cg_group_tendency(colors_hex))
+        color_set.save()
+        for color_hex in colors_hex:
+            database_color = Color.objects.filter(color_id_hex=color_hex)
+            if database_color.count() == 0:
+                color_dic = {"color_id_hex": color_hex,"color_tendency": color.color_tendency(color_hex), "is_light": color.color_is_light(color_hex), "is_saturated":color.color_is_saturated(color_hex)}
+                c = Color(**color_dic)
+                c.save()
+            else:
+                c = database_color[0]
+            color_set.colors.add(c)
 
 
-		if request.user.is_authenticated:
-			user_nname = request.user.username
-			user_obj = User.objects.get(username = user_nname)
-			user = User_Profile.objects.get(user = user_obj)
-			user.liked_color_groups.add(color_set)
+        if request.user.is_authenticated:
+            user_nname = request.user.username
+            user_obj = User.objects.get(username = user_nname)
+            user = User_Profile.objects.get(user = user_obj)
+            user.liked_color_groups.add(color_set)
 
-		#update_clusters()
-			
-		return JsonResponse({"done": "data","refresh": "yes"})
+        #update_clusters()
+
+        return JsonResponse({"done": "data","refresh": "yes"})
 
 
 class SignUpView(View):
-	def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 
-		username = request.POST['username']
-		password = request.POST['password']
+        username = request.POST['username']
+        password = request.POST['password']
 
-		taken_name = User.objects.filter(username=username)
+        taken_name = User.objects.filter(username=username)
 
-		if taken_name.count() == 0:
-			user_obj = User.objects.create_user(username=username,email=None,password=password)
-			user_obj.save()
-			user = User_Profile(user=user_obj)
-			user.save()
-			us = authenticate(request, username=username, password=password)
-			login(request, us)
-			return JsonResponse({"saved": "registered"})
+        if taken_name.count() == 0:
+            user_obj = User.objects.create_user(username=username,email=None,password=password)
+            user_obj.save()
+            user = User_Profile(user=user_obj)
+            user.save()
+            us = authenticate(request, username=username, password=password)
+            login(request, us)
+            return JsonResponse({"saved": "registered"})
 
-		else:
-			return JsonResponse({"saved": "same_name_taken"})
+        else:
+            return JsonResponse({"saved": "same_name_taken"})
 
 
 class RecommendationView(View):

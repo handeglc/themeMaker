@@ -40,6 +40,7 @@ export default class LikedCG extends Component {
       }).then(data => {
           console.log("hey00000000");
           console.log(data);
+          this.props.navigation.navigate('PresentedColors', {colors: data["color_list"], token: this.state.token, uri: "none"});
       }).catch(function(ex) {
           console.log("parsing failed", ex);
       });
