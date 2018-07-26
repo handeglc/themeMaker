@@ -35,7 +35,8 @@ export default class PresentedColors extends Component {
           'Not Authorized',
           'You should log in first!',
           [
-            {text: 'OK', onPress: () => this.props.navigation.navigate('Main')},
+            {text: 'OK'},
+            {text: 'Login', onPress: () => this.props.navigation.navigate('Main')},
           ],
           { cancelable: false }
         )
