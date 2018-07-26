@@ -1,0 +1,8 @@
+Run the django project ->		cd themaMaker
+								pip install -r requirements.txt   (install packages to your environment)
+								python manage.py runserver 0.0.0.0:8000
+
+Run the react-native project ->	cd themaMaker/reactAndroidTM
+								npm install
+								react-native run-android (open Android Emulator first)
+								react-native log-android (to see the logs)

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
+from django.http import JsonResponse
 import re
 import webcolors
 from django.views import View
@@ -10,29 +10,15 @@ from rest_framework.authentication import TokenAuthentication
 from polls.models import *
 from polls import color
 from .suggestions import update_clusters
-from random import randint,choice
+from random import randint
 from django.core.management import call_command
 import cv2
 from sklearn.cluster import KMeans
-
-from polls.serializers import ColorSerializer
-from rest_framework import generics
 from rest_framework.authtoken.models import Token
-
-
-#from rest_framework.permissions import IsAuthenticated
-#from rest_framework.response import Response
 from rest_framework.views import APIView
-#from rest_framework import authentication, permissions
-
-
-class ColorListCreate(generics.ListCreateAPIView):
-    queryset = Color.objects.all()
-    serializer_class = ColorSerializer
 
 
 class apiView(APIView):
-    # data = request.POST["data"]
 
     authentication_classes = (TokenAuthentication,)
     #permission_classes = (permissions.IsAdminUser,)
