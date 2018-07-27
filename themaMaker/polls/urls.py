@@ -18,6 +18,5 @@ urlpatterns = [
     re_path(r'^upload/recommend/', RecommendationView.as_view(), name='user_recommendation_list'),
     re_path(r'^upload/save/', SaveView.as_view()),
     re_path(r'^upload/', UploadView.as_view()),
-    re_path(r'api/lead/', views.ColorListCreate.as_view() ),
-    re_path(r'api/login/', apiView.as_view() )
+    re_path(r'api/login/', ReactApiView.as_view())
 ]#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

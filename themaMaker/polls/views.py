@@ -18,10 +18,10 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 
 
-class apiView(APIView):
+class ReactApiView(APIView):
 
     authentication_classes = (TokenAuthentication,)
-    #permission_classes = (permissions.IsAdminUser,)
+    # permission_classes = (permissions.IsAdminUser,)
 
     def get(self, request, format=None):
         """
@@ -107,7 +107,7 @@ class apiView(APIView):
 
             response["liked_cg"] = cg_list
             response["deleted"] = "true"
-            #response["token"] = Token.objects.get(user=User.objects.get(username=uname))
+            # response["token"] = Token.objects.get(user=User.objects.get(username=uname))
 
         elif operation == "add_cg":
             print("add_cg operation")
@@ -158,7 +158,7 @@ class UploadView(View):
         #self.IMAGE = img
 
         #using k-means to cluster pixels
-        kmeans = KMeans(n_clusters = cluster)
+        kmeans = KMeans(n_clusters=cluster)
         kmeans.fit(img)
 
         #getting the colors as per dominance order
@@ -221,7 +221,7 @@ class LoginView(View):
         c = {};
         c["liked_cg"]=[]
         if request.user.is_authenticated:
-            #c["liked_cg"]
+            # c["liked_cg"]
             cg_list =[]
             user_nname = request.user.username
             user_obj = User.objects.get(username = user_nname)
@@ -259,14 +259,14 @@ class LoginView(View):
 
             if user is not None:
                 login(request, user)
-                #c = self.liked_cg(request)
+                # c = self.liked_cg(request)
                 print(c)
                 c["message"] = "done"
                 print(c)
-                #return render(request,'index.html',c)
+                # return render(request,'index.html',c)
             else:
                 c["message"] = "Your username or password is wrong, try again!"
-                #return render(request,'login.html',c)
+                # return render(request,'login.html',c)
         return c
 
 
